@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "engg-intelligence.fullname" . }}-worker-digest
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "engg-intelligence.labels" . | nindent 4 }}
+    app.kubernetes.io/component: worker-digest
+spec:
+  replicas: {{ .Values.workers.digest.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "engg-intelligence.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: worker-digest
+  template:
+    metadata:
+      labels:
+        {{- include "engg-intelligence.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: worker-digest
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: worker-digest
+          image: {{ include "engg-intelligence.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - celery
+            - -A
+            - app.celery_app
+            - worker
+            - --queues={{ .Values.workers.digest.queues }}
+            - --loglevel=info
+            - --concurrency={{ .Values.workers.digest.concurrency }}
+          envFrom:
+            - secretRef:
+                name: {{ include "engg-intelligence.secretName" . }}
+          resources:
+            {{- toYaml .Values.workers.digest.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

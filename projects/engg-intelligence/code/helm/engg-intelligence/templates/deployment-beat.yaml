@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "engg-intelligence.fullname" . }}-beat
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "engg-intelligence.labels" . | nindent 4 }}
+    app.kubernetes.io/component: beat
+  annotations:
+    # IMPORTANT: replicas is intentionally hardcoded to 1 in this template.
+    # Multiple Beat instances would fire every scheduled task multiple times.
+    # Do NOT override this value via values.yaml or --set.
+spec:
+  # HARDCODED — DO NOT CHANGE. Multiple Beat pods = duplicate task firing.
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "engg-intelligence.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: beat
+  strategy:
+    # Recreate ensures the old pod is fully terminated before the new one starts.
+    # This prevents even a brief window with two Beat pods.
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        {{- include "engg-intelligence.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: beat
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: beat
+          image: {{ include "engg-intelligence.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - celery
+            - -A
+            - app.celery_app
+            - beat
+            - --loglevel=info
+            - --scheduler
+            - celery.beat.PersistentScheduler
+          envFrom:
+            - secretRef:
+                name: {{ include "engg-intelligence.secretName" . }}
+          resources:
+            {{- toYaml .Values.beat.resources | nindent 12 }}
+          volumeMounts:
+            - name: beatdata
+              mountPath: /app/celerybeat-schedule
+      volumes:
+        - name: beatdata
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

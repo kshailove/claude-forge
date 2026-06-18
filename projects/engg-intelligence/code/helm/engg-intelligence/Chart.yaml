@@ -1,0 +1,15 @@
+apiVersion: v2
+name: engg-intelligence
+description: Engineering Intelligence Platform — nightly batch ingestion, metrics computation, and team health dashboards
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - engineering
+  - metrics
+  - dora
+  - observability
+home: https://github.com/your-org/engg-intelligence
+maintainers:
+  - name: Platform Team
+    email: platform@yourcompany.com

@@ -1,0 +1,49 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.5, pytest-9.1.0, pluggy-1.6.0 -- /Users/kumarshailove/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/kumarshailove/gh.kumarshailove/claude-forge/projects/sdr/code
+plugins: mock-3.15.1
+collecting ... collected 40 items
+
+tests/test_main.py::TestDeriveProspectName::test_derive_prospect_name_plain_domain PASSED [  2%]
+tests/test_main.py::TestDeriveProspectName::test_derive_prospect_name_plain_two_label_tld PASSED [  5%]
+tests/test_main.py::TestDeriveProspectName::test_derive_prospect_name_www_stripped PASSED [  7%]
+tests/test_main.py::TestDeriveProspectName::test_derive_prospect_name_app_subdomain_stripped PASSED [ 10%]
+tests/test_main.py::TestDeriveProspectName::test_derive_prospect_name_go_subdomain_stripped PASSED [ 12%]
+tests/test_main.py::TestDeriveProspectName::test_derive_prospect_name_my_subdomain_stripped PASSED [ 15%]
+tests/test_main.py::TestDeriveProspectName::test_derive_prospect_name_hyphenated_stem PASSED [ 17%]
+tests/test_main.py::TestDeriveProspectName::test_derive_prospect_name_co_uk_tld_unaffected PASSED [ 20%]
+tests/test_main.py::TestValidateHtmlSections::test_validate_html_sections_correct_count PASSED [ 22%]
+tests/test_main.py::TestValidateHtmlSections::test_validate_html_sections_wrong_count_eight PASSED [ 25%]
+tests/test_main.py::TestValidateHtmlSections::test_validate_html_sections_container_not_found PASSED [ 27%]
+tests/test_main.py::TestValidateHtmlSections::test_validate_html_sections_nested_sections_not_counted PASSED [ 30%]
+tests/test_main.py::TestValidateHtmlSections::test_validate_html_sections_custom_selector PASSED [ 32%]
+tests/test_main.py::TestValidateHtmlSections::test_validate_html_sections_malformed_html PASSED [ 35%]
+tests/test_main.py::TestFormatErrorLine::test_format_error_line_output_format PASSED [ 37%]
+tests/test_main.py::TestFormatErrorLine::test_format_error_line_message_truncated_at_200 PASSED [ 40%]
+tests/test_main.py::TestFormatErrorLine::test_format_error_line_multiline_message_uses_first_line_only PASSED [ 42%]
+tests/test_main.py::TestFormatSectionWarning::test_format_section_warning_both_counts_in_output PASSED [ 45%]
+tests/test_main.py::TestFormatSectionWarning::test_format_section_warning_different_counts_reported_separately PASSED [ 47%]
+tests/test_main.py::TestAppendErrorLog::test_append_error_log_creates_file_if_absent PASSED [ 50%]
+tests/test_main.py::TestAppendErrorLog::test_append_error_log_appends_to_existing_file PASSED [ 52%]
+tests/test_main.py::TestAppendErrorLog::test_append_error_log_newline_always_appended PASSED [ 55%]
+tests/test_tools.py::TestExtractGoogleFontName::test_extract_google_font_name_css2_with_weight PASSED [ 57%]
+tests/test_tools.py::TestExtractGoogleFontName::test_extract_google_font_name_css1_plus_encoded_space PASSED [ 60%]
+tests/test_tools.py::TestExtractGoogleFontName::test_extract_google_font_name_open_sans_with_display_param PASSED [ 62%]
+tests/test_tools.py::TestExtractGoogleFontName::test_extract_google_font_name_no_match_returns_none PASSED [ 65%]
+tests/test_tools.py::TestExtractGoogleFontName::test_extract_google_font_name_url_without_family_param_returns_none PASSED [ 67%]
+tests/test_tools.py::TestExtractGoogleFontName::test_extract_google_font_name_protocol_relative_url PASSED [ 70%]
+tests/test_tools.py::TestWebsiteThemeScraper::test_website_theme_scraper_returns_json_with_all_keys PASSED [ 72%]
+tests/test_tools.py::TestWebsiteThemeScraper::test_website_theme_scraper_returns_fallback_on_connection_error PASSED [ 75%]
+tests/test_tools.py::TestWebsiteThemeScraper::test_website_theme_scraper_returns_fallback_on_http_403 PASSED [ 77%]
+tests/test_tools.py::TestWebsiteThemeScraper::test_website_theme_scraper_fills_missing_fields_from_fallback PASSED [ 80%]
+tests/test_tools.py::TestKnowledgeSearchTool::test_knowledge_search_tool_delegates_to_similarity_search PASSED [ 82%]
+tests/test_tools.py::TestKnowledgeSearchTool::test_knowledge_search_tool_returns_empty_message_when_no_chunks PASSED [ 85%]
+tests/test_tools.py::TestKnowledgeSearchTool::test_knowledge_search_tool_returns_error_message_on_exception PASSED [ 87%]
+tests/test_knowledge_store.py::TestChunkText::test_chunk_text_empty_string_returns_empty_list PASSED [ 90%]
+tests/test_knowledge_store.py::TestChunkText::test_chunk_text_short_text_under_chunk_size_returns_one_chunk PASSED [ 92%]
+tests/test_knowledge_store.py::TestChunkText::test_chunk_text_produces_correct_chunk_size PASSED [ 95%]
+tests/test_knowledge_store.py::TestChunkText::test_chunk_text_overlap_is_correct PASSED [ 97%]
+tests/test_knowledge_store.py::TestChunkText::test_chunk_text_exact_chunk_size_returns_two_chunks PASSED [100%]
+
+============================== 40 passed in 3.54s ==============================

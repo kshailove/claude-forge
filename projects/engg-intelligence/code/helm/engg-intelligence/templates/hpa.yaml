@@ -1,0 +1,49 @@
+{{- if .Values.hpa.api.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "engg-intelligence.fullname" . }}-api
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "engg-intelligence.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "engg-intelligence.fullname" . }}-api
+  minReplicas: {{ .Values.hpa.api.minReplicas }}
+  maxReplicas: {{ .Values.hpa.api.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.hpa.api.targetCPUUtilizationPercentage }}
+{{- end }}
+---
+{{- if .Values.hpa.workerGithub.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "engg-intelligence.fullname" . }}-worker-github
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "engg-intelligence.labels" . | nindent 4 }}
+    app.kubernetes.io/component: worker-github
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "engg-intelligence.fullname" . }}-worker-github
+  minReplicas: {{ .Values.hpa.workerGithub.minReplicas }}
+  maxReplicas: {{ .Values.hpa.workerGithub.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.hpa.workerGithub.targetCPUUtilizationPercentage }}
+{{- end }}

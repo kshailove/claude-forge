@@ -1,0 +1,291 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-all font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" />
+      <mj-text font-size="14px" line-height="1.6" color="#1a1a2e" />
+      <mj-section padding="0" />
+    </mj-attributes>
+    <mj-style>
+      .rag-green { background-color: #16a34a; color: #ffffff; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; display: inline-block; }
+      .rag-amber { background-color: #d97706; color: #ffffff; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; display: inline-block; }
+      .rag-red   { background-color: #dc2626; color: #ffffff; padding: 2px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; display: inline-block; }
+      .metric-value { font-size: 24px; font-weight: 700; color: #0f172a; }
+      .metric-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+      .risk-row { background: #fef2f2; border-left: 3px solid #dc2626; padding: 8px 12px; margin: 4px 0; }
+      table.score-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      table.score-table th { background: #f1f5f9; padding: 8px 12px; text-align: left; font-weight: 600; color: #475569; border-bottom: 2px solid #e2e8f0; }
+      table.score-table td { padding: 8px 12px; border-bottom: 1px solid #e2e8f0; }
+      .band-elite { color: #16a34a; font-weight: 600; }
+      .band-high  { color: #0284c7; font-weight: 600; }
+      .band-medium{ color: #d97706; font-weight: 600; }
+      .band-low   { color: #dc2626; font-weight: 600; }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#f8fafc">
+
+    <!-- Header -->
+    <mj-section background-color="#0f172a" padding="20px 24px">
+      <mj-column>
+        <mj-text color="#ffffff" font-size="20px" font-weight="700" padding="0">
+          Engg Intelligence
+        </mj-text>
+        <mj-text color="#94a3b8" font-size="13px" padding="4px 0 0 0">
+          Weekly Digest — {{ week_label }}
+        </mj-text>
+      </mj-column>
+      <mj-column>
+        <mj-text color="#94a3b8" font-size="12px" align="right" padding="0">
+          {{ current_date }}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Greeting -->
+    <mj-section background-color="#ffffff" padding="20px 24px 8px 24px">
+      <mj-column>
+        <mj-text font-size="18px" font-weight="700" color="#0f172a" padding="0">
+          Hi {{ username }}, here's your team's weekly health report
+        </mj-text>
+        <mj-text font-size="13px" color="#64748b" padding="4px 0 0 0">
+          Team: <strong>{{ team_name }}</strong>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Section: Team Health Snapshot -->
+    <mj-section background-color="#ffffff" padding="16px 24px 8px 24px">
+      <mj-column>
+        <mj-text font-size="16px" font-weight="700" color="#0f172a" padding="0 0 8px 0">
+          Team health snapshot
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#ffffff" padding="0 24px 16px 24px">
+      <mj-column>
+        <mj-text padding="0">
+          <span class="rag-{{ rag }}">{{ rag | upper }}</span>
+          &nbsp;&nbsp;
+          <strong style="font-size: 28px; color: #0f172a;">{{ composite_score }}</strong>
+          <span style="font-size: 13px; color: #64748b;">/100</span>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#ffffff" padding="0 24px 16px 24px">
+      <mj-column border="1px solid #e2e8f0" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ pr_health_score | default("—") }}
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          PR Health
+        </mj-text>
+      </mj-column>
+      <mj-column border="1px solid #e2e8f0" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ sprint_health_score | default("—") }}
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Sprint Health
+        </mj-text>
+      </mj-column>
+      <mj-column border="1px solid #e2e8f0" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ incident_load_score | default("—") }}
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Incident Load
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Section: PR Health -->
+    <mj-section background-color="#f8fafc" padding="16px 24px 8px 24px">
+      <mj-column>
+        <mj-text font-size="16px" font-weight="700" color="#0f172a" padding="0 0 8px 0">
+          PR health
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#f8fafc" padding="0 24px 16px 24px">
+      <mj-column border="1px solid #e2e8f0" background-color="#ffffff" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ pr_health_score | default("—") }}
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Score
+        </mj-text>
+      </mj-column>
+      <mj-column border="1px solid #e2e8f0" background-color="#ffffff" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ avg_cycle_time_hours }}h
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Avg Cycle Time
+        </mj-text>
+      </mj-column>
+      <mj-column border="1px solid #e2e8f0" background-color="#ffffff" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" {% if stale_pr_count > 5 %}color="#dc2626"{% else %}color="#0f172a"{% endif %} padding="0" align="center">
+          {{ stale_pr_count }}
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Stale PRs
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Section: Sprint Health -->
+    <mj-section background-color="#ffffff" padding="16px 24px 8px 24px">
+      <mj-column>
+        <mj-text font-size="16px" font-weight="700" color="#0f172a" padding="0 0 8px 0">
+          Sprint health
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#ffffff" padding="0 24px 16px 24px">
+      <mj-column border="1px solid #e2e8f0" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ sprint_health_score | default("—") }}
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Score
+        </mj-text>
+      </mj-column>
+      <mj-column border="1px solid #e2e8f0" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ sprint_completion_pct | default("—") }}%
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Sprint Completion
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    {% if velocity_trend %}
+    <mj-section background-color="#ffffff" padding="0 24px 16px 24px">
+      <mj-column>
+        <mj-text font-size="13px" color="#475569" padding="0">
+          <strong>Velocity trend (last 5 sprints):</strong>
+          {{ velocity_trend | join(" → ") }}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    {% endif %}
+
+    <!-- Section: Incident Load -->
+    <mj-section background-color="#f8fafc" padding="16px 24px 8px 24px">
+      <mj-column>
+        <mj-text font-size="16px" font-weight="700" color="#0f172a" padding="0 0 8px 0">
+          Incident load
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#f8fafc" padding="0 24px 16px 24px">
+      <mj-column border="1px solid #e2e8f0" background-color="#ffffff" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ incident_load_score | default("—") }}
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Score
+        </mj-text>
+      </mj-column>
+      <mj-column border="1px solid #e2e8f0" background-color="#ffffff" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ mtta_minutes }}m
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Avg MTTA
+        </mj-text>
+      </mj-column>
+      <mj-column border="1px solid #e2e8f0" background-color="#ffffff" border-radius="8px" padding="16px">
+        <mj-text font-size="22px" font-weight="700" color="#0f172a" padding="0" align="center">
+          {{ mttr_hours }}h
+        </mj-text>
+        <mj-text font-size="11px" color="#64748b" padding="2px 0 0 0" align="center">
+          Avg MTTR
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Section: Top Risks -->
+    {% if risk_flags %}
+    <mj-section background-color="#ffffff" padding="16px 24px 8px 24px">
+      <mj-column>
+        <mj-text font-size="16px" font-weight="700" color="#dc2626" padding="0 0 8px 0">
+          Top risks
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#ffffff" padding="0 24px 16px 24px">
+      <mj-column>
+        {% for flag in risk_flags %}
+        <mj-text font-size="13px" color="#7f1d1d" padding="4px 0"
+          container-background-color="#fef2f2"
+          border-left="3px solid #dc2626">
+          ⚠ {{ flag }}
+        </mj-text>
+        {% endfor %}
+      </mj-column>
+    </mj-section>
+    {% endif %}
+
+    <!-- Section: DORA Snapshot -->
+    <mj-section background-color="#f8fafc" padding="16px 24px 8px 24px">
+      <mj-column>
+        <mj-text font-size="16px" font-weight="700" color="#0f172a" padding="0 0 8px 0">
+          DORA snapshot
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#f8fafc" padding="0 24px 16px 24px">
+      <mj-column>
+        <mj-table>
+          <tr style="background: #f1f5f9;">
+            <th style="padding: 8px 12px; text-align: left; font-size: 12px; color: #475569; border-bottom: 2px solid #e2e8f0;">Metric</th>
+            <th style="padding: 8px 12px; text-align: right; font-size: 12px; color: #475569; border-bottom: 2px solid #e2e8f0;">Value</th>
+            <th style="padding: 8px 12px; text-align: right; font-size: 12px; color: #475569; border-bottom: 2px solid #e2e8f0;">Band</th>
+          </tr>
+          <tr>
+            <td style="padding: 8px 12px; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Deployment Frequency</td>
+            <td style="padding: 8px 12px; font-size: 13px; text-align: right; border-bottom: 1px solid #e2e8f0;">{{ dora_deploy_freq }}/day</td>
+            <td style="padding: 8px 12px; font-size: 13px; text-align: right; border-bottom: 1px solid #e2e8f0;" class="band-{{ dora_deploy_freq_band | lower }}">{{ dora_deploy_freq_band }}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 12px; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Lead Time for Changes</td>
+            <td style="padding: 8px 12px; font-size: 13px; text-align: right; border-bottom: 1px solid #e2e8f0;">{{ dora_lead_time }}</td>
+            <td style="padding: 8px 12px; font-size: 13px; text-align: right; border-bottom: 1px solid #e2e8f0;" class="band-{{ dora_lead_time_band | lower }}">{{ dora_lead_time_band }}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 12px; font-size: 13px; border-bottom: 1px solid #e2e8f0;">Change Failure Rate</td>
+            <td style="padding: 8px 12px; font-size: 13px; text-align: right; border-bottom: 1px solid #e2e8f0;">{{ dora_cfr }}%</td>
+            <td style="padding: 8px 12px; font-size: 13px; text-align: right; border-bottom: 1px solid #e2e8f0;" class="band-{{ dora_cfr_band | lower }}">{{ dora_cfr_band }}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 12px; font-size: 13px;">MTTR</td>
+            <td style="padding: 8px 12px; font-size: 13px; text-align: right;">{{ dora_mttr }}</td>
+            <td style="padding: 8px 12px; font-size: 13px; text-align: right;" class="band-{{ dora_mttr_band | lower }}">{{ dora_mttr_band }}</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <!-- Footer -->
+    <mj-section background-color="#f1f5f9" padding="16px 24px">
+      <mj-column>
+        <mj-text color="#94a3b8" font-size="11px" align="center" padding="0">
+          You are receiving this digest because you are an active user of Engg Intelligence.
+          This is an automated weekly summary. Do not reply to this email.
+        </mj-text>
+        <mj-text color="#94a3b8" font-size="11px" align="center" padding="4px 0 0 0">
+          Generated at {{ generated_at }} UTC
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.grafana.dashboardsConfigMap }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "engg-intelligence.labels" . | nindent 4 }}
+    grafana_dashboard: "1"
+  annotations:
+    # Grafana sidecar picks up ConfigMaps with label grafana_dashboard=1
+    k8s-sidecar-target-directory: "/tmp/dashboards"
+data:
+  # Dashboard JSON files are mounted from the monitoring/grafana/dashboards/ directory.
+  # In a production deploy, use Helm --set-file or a CI step to inline the JSON here.
+  # Example (in CI):
+  #   helm upgrade engg-intelligence ./helm/engg-intelligence \
+  #     --set-file grafanaDashboards.nightly-pipeline=monitoring/grafana/dashboards/nightly-pipeline.json
+  #
+  # The ConfigMap key names must end in .json for the Grafana sidecar to pick them up.
+  nightly-pipeline.json: |
+    {}
+  api-performance.json: |
+    {}
+  ingestion-health.json: |
+    {}
+  team-health-overview.json: |
+    {}
+  oncall-load.json: |
+    {}

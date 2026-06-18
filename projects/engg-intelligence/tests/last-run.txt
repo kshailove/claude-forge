@@ -1,0 +1,389 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.5, pytest-9.1.0, pluggy-1.6.0 -- /Users/kumarshailove/claude-forge/projects/engg-intelligence/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/kumarshailove/claude-forge
+plugins: asyncio-1.4.0, httpx-0.36.2, anyio-4.13.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 294 items
+
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py::TestEngineerDigestScope::test_ac_engineer_digest_contains_only_own_data SKIPPED [  0%]
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py::TestEngineerDigestScope::test_ac_engineer_cannot_access_em_digest SKIPPED [  0%]
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py::TestEMDigestScope::test_ac_em_digest_contains_only_own_team_data SKIPPED [  1%]
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py::TestEMDigestScope::test_ac_em_can_access_own_digest SKIPPED [  1%]
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py::TestDigestNotVisibleToOtherUsers::test_ac_digest_not_visible_to_other_users PASSED [  1%]
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py::TestDigestNotVisibleToOtherUsers::test_ac_random_digest_id_returns_404 PASSED [  2%]
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py::TestDigestNotVisibleToOtherUsers::test_ac_no_auth_digest_returns_401 PASSED [  2%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestCompositeUsesCustomTeamWeights::test_ac_composite_uses_custom_team_weights PASSED [  2%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestCompositeUsesCustomTeamWeights::test_ac_custom_weights_must_sum_to_1 PASSED [  3%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestSlackDegradedWeightsSum::test_ac_slack_degraded_excludes_from_composite_weights_sum_to_1 PASSED [  3%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestSlackDegradedWeightsSum::test_ac_slack_weight_zero_after_degradation PASSED [  3%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestSlackDegradedWeightsSum::test_ac_custom_slack_degraded_also_sums_to_1 PASSED [  4%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestSlackDegradedWeightsSum::test_ac_slack_degraded_compute_uses_three_components PASSED [  4%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_39_is_red PASSED [  4%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_39_99_is_red PASSED [  5%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_40_is_amber PASSED [  5%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_40_01_is_amber PASSED [  5%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_69_is_amber PASSED [  6%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_69_99_is_amber PASSED [  6%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_70_is_green PASSED [  6%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_70_01_is_green PASSED [  7%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_100_is_green PASSED [  7%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_0_is_red PASSED [  7%]
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestScoreRange::test_ac_composite_score_always_in_0_to_100 PASSED [  8%]
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py::TestAutoResolveMatchesByEmail::test_ac_auto_resolve_matches_by_email PASSED [  8%]
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py::TestAutoResolveMatchesByEmail::test_ac_auto_resolve_updates_canonical_user_id PASSED [  8%]
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py::TestManualMappingNotOverwritten::test_ac_manual_mapping_not_overwritten PASSED [  9%]
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py::TestManualMappingNotOverwritten::test_ac_upsert_does_not_overwrite_manual_mapping PASSED [  9%]
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py::TestUnresolvedUsersListed::test_ac_unresolved_users_listed_when_no_email_match PASSED [  9%]
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py::TestUnresolvedUsersListed::test_ac_get_unresolved_mappings_returns_list PASSED [ 10%]
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py::TestUnresolvedUsersListed::test_ac_upsert_with_no_match_returns_none PASSED [ 10%]
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py::TestUnresolvedUsersListed::test_ac_resolve_all_tools_processes_every_tool PASSED [ 10%]
+projects/engg-intelligence/tests/acceptance/test_ac_nightly_pipeline.py::TestOrchestratorCreatesNightlyRunRecord::test_ac_orchestrator_creates_nightly_run_record SKIPPED [ 11%]
+projects/engg-intelligence/tests/acceptance/test_ac_nightly_pipeline.py::TestOrchestratorCreatesNightlyRunRecord::test_ac_nightly_run_has_started_at PASSED [ 11%]
+projects/engg-intelligence/tests/acceptance/test_ac_nightly_pipeline.py::TestOverlappingRunIsRejected::test_ac_overlapping_run_is_rejected PASSED [ 11%]
+projects/engg-intelligence/tests/acceptance/test_ac_nightly_pipeline.py::TestOverlappingRunIsRejected::test_ac_completed_run_allows_new_run PASSED [ 12%]
+projects/engg-intelligence/tests/acceptance/test_ac_nightly_pipeline.py::TestChordDispatchesGitHubTask::test_ac_chord_dispatches_github_task_when_connected PASSED [ 12%]
+projects/engg-intelligence/tests/acceptance/test_ac_nightly_pipeline.py::TestChordDispatchesGitHubTask::test_ac_disconnected_github_skips_task PASSED [ 12%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestEMCannotCallAdminEndpoints::test_ac_em_cannot_call_admin_users PASSED [ 13%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestEMCannotCallAdminEndpoints::test_ac_em_cannot_get_admin_users PASSED [ 13%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestEMCannotCallAdminEndpoints::test_ac_em_cannot_create_admin_teams PASSED [ 13%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestEngineerCannotCallAdminEndpoints::test_ac_engineer_cannot_call_admin_users PASSED [ 14%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestEngineerCannotCallAdminEndpoints::test_ac_engineer_cannot_list_admin_users PASSED [ 14%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestEngineerCannotCallAdminEndpoints::test_ac_engineer_cannot_trigger_nightly_run PASSED [ 14%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestEngineerPeerReturns404NotForbidden::test_ac_engineer_peer_profile_returns_404_not_403 PASSED [ 15%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestEngineerPeerReturns404NotForbidden::test_ac_engineer_another_seeded_engineer_returns_404 PASSED [ 15%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestDirectorCrossTeamAccess::test_ac_director_sees_cross_team_data PASSED [ 15%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestDirectorCrossTeamAccess::test_ac_director_overview_shows_multiple_teams PASSED [ 16%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestDirectorCrossTeamAccess::test_ac_director_can_view_all_engineer_profiles PASSED [ 16%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestRoleFromJWT::test_ac_role_not_spoofable_via_query_param PASSED [ 17%]
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py::TestRoleFromJWT::test_ac_no_token_always_401 PASSED [ 17%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminUsersEndpoint::test_admin_can_list_users PASSED [ 17%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminUsersEndpoint::test_director_cannot_access_admin_users PASSED [ 18%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminUsersEndpoint::test_em_cannot_access_admin_users PASSED [ 18%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminUsersEndpoint::test_engineer_cannot_access_admin_users PASSED [ 18%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminUsersEndpoint::test_admin_can_create_user PASSED [ 19%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminUsersEndpoint::test_admin_list_users_returns_list PASSED [ 19%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminTeamsEndpoint::test_admin_can_list_teams PASSED [ 19%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminTeamsEndpoint::test_admin_create_team PASSED [ 20%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminTeamsEndpoint::test_non_admin_cannot_create_team PASSED [ 20%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminNightlyRuns::test_admin_can_list_nightly_runs PASSED [ 20%]
+projects/engg-intelligence/tests/integration/test_admin_api.py::TestAdminNightlyRuns::test_non_admin_blocked_from_nightly_runs PASSED [ 21%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestLoginValidCredentials::test_login_valid_credentials_returns_tokens PASSED [ 21%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestLoginValidCredentials::test_login_returns_user_info PASSED [ 21%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestLoginValidCredentials::test_login_returns_expires_in PASSED [ 22%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestLoginInvalidPassword::test_login_invalid_password_returns_401 PASSED [ 22%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestLoginInvalidPassword::test_login_invalid_password_error_code PASSED [ 22%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestLoginUnknownUser::test_login_unknown_user_returns_401 PASSED [ 23%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestRefreshToken::test_refresh_valid_token_returns_new_access_token PASSED [ 23%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestRefreshToken::test_refresh_invalid_token_returns_401 PASSED [ 23%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestLogout::test_logout_invalidates_refresh_token PASSED [ 24%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestProtectedWithoutToken::test_protected_endpoint_without_token_returns_401 PASSED [ 24%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestProtectedWithoutToken::test_protected_endpoint_malformed_token_returns_401 PASSED [ 24%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestProtectedWithoutToken::test_protected_endpoint_missing_bearer_prefix_returns_401 PASSED [ 25%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestMe::test_me_returns_current_user PASSED [ 25%]
+projects/engg-intelligence/tests/integration/test_auth_api.py::TestMe::test_me_without_token_returns_401 PASSED [ 25%]
+projects/engg-intelligence/tests/integration/test_digests_api.py::TestDigestsList::test_digests_endpoint_exists PASSED [ 26%]
+projects/engg-intelligence/tests/integration/test_digests_api.py::TestDigestsList::test_digests_no_auth_returns_401 PASSED [ 26%]
+projects/engg-intelligence/tests/integration/test_digests_api.py::TestDigestsList::test_engineer_digest_contains_only_own_data SKIPPED [ 26%]
+projects/engg-intelligence/tests/integration/test_digests_api.py::TestEMDigestScope::test_em_digest_contains_only_own_team_data SKIPPED [ 27%]
+projects/engg-intelligence/tests/integration/test_digests_api.py::TestDigestPrivacy::test_digest_not_visible_to_other_users PASSED [ 27%]
+projects/engg-intelligence/tests/integration/test_digests_api.py::TestDigestPrivacy::test_digest_requires_authentication PASSED [ 27%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestEngineerSeesOwnProfile::test_engineer_sees_own_profile PASSED [ 28%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestEngineerSeesOwnProfile::test_engineer_own_profile_has_required_fields PASSED [ 28%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestEngineerSeesOwnProfile::test_engineer_own_profile_has_code_activity PASSED [ 28%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestEngineerPeerProfile::test_engineer_sees_peer_profile_returns_404 PASSED [ 29%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestEngineerPeerProfile::test_engineer_peer_returns_404_not_403 PASSED [ 29%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestEMSeesOwnTeamEngineers::test_em_sees_own_team_engineers_only PASSED [ 29%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestEMSeesOwnTeamEngineers::test_em_can_view_own_team_engineer_profile PASSED [ 30%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestEMSeesOwnTeamEngineers::test_em_cannot_view_other_team_engineer_profile PASSED [ 30%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestDirectorSeesAllEngineers::test_director_can_view_any_engineer_profile PASSED [ 30%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestDirectorSeesAllEngineers::test_director_list_engineers_includes_all PASSED [ 31%]
+projects/engg-intelligence/tests/integration/test_engineers_api.py::TestUnauthorized::test_no_token_returns_401 PASSED [ 31%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsList::test_list_incidents_returns_200 PASSED [ 31%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsList::test_list_incidents_has_pagination_fields PASSED [ 32%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsList::test_em_sees_only_own_team_incidents PASSED [ 32%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsList::test_no_auth_returns_401 PASSED [ 32%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsSummary::test_summary_returns_200 PASSED [ 33%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsSummary::test_summary_has_required_fields PASSED [ 33%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsSummary::test_summary_by_severity_has_p1_p2_p3_p4 PASSED [ 34%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestOncallLoad::test_oncall_load_returns_200 PASSED [ 34%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestOncallLoad::test_oncall_load_has_engineers_and_gini PASSED [ 34%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsByService::test_by_service_returns_200 PASSED [ 35%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsByService::test_by_service_has_services_list PASSED [ 35%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsTimeline::test_timeline_returns_200 PASSED [ 35%]
+projects/engg-intelligence/tests/integration/test_incidents_api.py::TestIncidentsTimeline::test_timeline_has_data_list PASSED [ 36%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestEMSeesOnlyOwnTeam::test_em_sees_only_own_team_card PASSED [ 36%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestEMSeesOnlyOwnTeam::test_em_overview_total_matches_teams_count PASSED [ 36%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestDirectorSeesAllTeams::test_director_sees_all_teams PASSED [ 37%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestDirectorSeesAllTeams::test_admin_sees_all_teams PASSED [ 37%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestCardHasRequiredFields::test_card_has_required_fields PASSED [ 37%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestCardHasRequiredFields::test_card_rag_is_valid_value PASSED [ 38%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestCardHasRequiredFields::test_card_sparkline_is_list PASSED [ 38%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestCardHasRequiredFields::test_card_team_name_present PASSED [ 38%]
+projects/engg-intelligence/tests/integration/test_overview_api.py::TestOverviewNoAuth::test_no_token_returns_401 PASSED [ 39%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestEMCannotAccessOtherTeam::test_em_cannot_access_other_team_404 PASSED [ 39%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestEMCannotAccessOtherTeam::test_em_cannot_access_other_team_pr_health PASSED [ 39%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestDirectorCanAccessAnyTeam::test_director_can_access_own_team PASSED [ 40%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestDirectorCanAccessAnyTeam::test_director_can_access_other_team PASSED [ 40%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestStalePRsList::test_stale_prs_list_has_days_stale_field PASSED [ 40%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestStalePRsList::test_stale_prs_has_required_fields PASSED [ 41%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestSlackDegradedFlag::test_slack_degraded_returns_degraded_flag PASSED [ 41%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestSlackDegradedFlag::test_slack_degraded_has_reason PASSED [ 41%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestTeamsList::test_em_sees_only_own_team_in_list PASSED [ 42%]
+projects/engg-intelligence/tests/integration/test_teams_api.py::TestTeamsList::test_director_sees_all_teams_in_list PASSED [ 42%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_red_below_40 PASSED [ 42%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_red_at_0 PASSED [ 43%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_red_at_39_99 PASSED [ 43%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_amber_at_40 PASSED [ 43%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_amber_between_40_and_70 PASSED [ 44%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_amber_at_69_99 PASSED [ 44%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_green_at_70 PASSED [ 44%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_green_above_70 PASSED [ 45%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestRAGClassification::test_rag_green_at_100 PASSED [ 45%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestDefaultWeights::test_default_weights_sum_to_1 PASSED [ 45%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestDefaultWeights::test_default_weights_are_positive PASSED [ 46%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestSlackDegradedRedistributesWeights::test_slack_degraded_remaining_weights_sum_to_1 PASSED [ 46%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestSlackDegradedRedistributesWeights::test_slack_degraded_slack_weight_is_zero PASSED [ 46%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestSlackDegradedRedistributesWeights::test_slack_degraded_other_weights_increase_proportionally PASSED [ 47%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestSlackDegradedRedistributesWeights::test_custom_weights_redistribution_still_sums_to_1 PASSED [ 47%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestWeightedCompositeArithmetic::test_all_100_yields_100 PASSED [ 47%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestWeightedCompositeArithmetic::test_all_0_yields_0 PASSED [ 48%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestWeightedCompositeArithmetic::test_slack_none_excludes_from_composite PASSED [ 48%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestWeightedCompositeArithmetic::test_all_components_none_returns_zero PASSED [ 48%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestWeightedCompositeArithmetic::test_known_weighted_composite PASSED [ 49%]
+projects/engg-intelligence/tests/unit/test_composite_score.py::TestWeightedCompositeArithmetic::test_score_within_0_to_100 PASSED [ 49%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAMetricsModel::test_dora_metrics_instantiates_with_defaults PASSED [ 50%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAMetricsModel::test_dora_metrics_has_expected_fields PASSED [ 50%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORABands::test_deployment_frequency_elite_band PASSED [ 50%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORABands::test_lead_time_for_changes_low_is_good PASSED [ 51%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORABands::test_change_failure_rate_low_is_good PASSED [ 51%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORABands::test_mttr_short_is_elite PASSED [ 51%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORABands::test_none_fields_are_accepted PASSED [ 52%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAClassificationLogic::test_deploy_multiple_per_day_is_elite PASSED [ 52%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAClassificationLogic::test_deploy_once_a_day_is_elite PASSED [ 52%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAClassificationLogic::test_deploy_weekly_is_high PASSED [ 53%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAClassificationLogic::test_deploy_monthly_is_medium PASSED [ 53%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAClassificationLogic::test_deploy_less_than_monthly_is_low PASSED [ 53%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAClassificationLogic::test_lead_time_under_1h_is_elite PASSED [ 54%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAClassificationLogic::test_lead_time_24h_is_high PASSED [ 54%]
+projects/engg-intelligence/tests/unit/test_dora.py::TestDORAClassificationLogic::test_lead_time_over_7_days_is_low PASSED [ 54%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestEncryptDecryptRoundtrip::test_roundtrip_simple_dict PASSED [ 55%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestEncryptDecryptRoundtrip::test_roundtrip_nested_dict PASSED [ 55%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestEncryptDecryptRoundtrip::test_roundtrip_empty_dict PASSED [ 55%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestEncryptDecryptRoundtrip::test_decrypt_config_field_returns_value PASSED [ 56%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestEncryptDecryptRoundtrip::test_decrypt_config_field_missing_key_returns_none PASSED [ 56%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestDifferentNonceEachCall::test_different_nonce_each_call PASSED [ 56%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestDifferentNonceEachCall::test_nonce_length_is_12_bytes PASSED [ 57%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestDifferentNonceEachCall::test_ciphertext_is_valid_base64 PASSED [ 57%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestWrongKeyRaises::test_wrong_key_raises_on_decrypt PASSED [ 57%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestWrongKeyRaises::test_malformed_base64_raises_value_error PASSED [ 58%]
+projects/engg-intelligence/tests/unit/test_encryption.py::TestWrongKeyRaises::test_too_short_ciphertext_raises_value_error PASSED [ 58%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestAllTools::test_all_tools_contains_expected_tools PASSED [ 58%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestAllTools::test_all_tools_is_tuple PASSED [ 59%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestAutoResolveAll::test_auto_resolve_matches_by_email PASSED [ 59%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestAutoResolveAll::test_manual_mapping_not_overwritten PASSED [ 59%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestAutoResolveAll::test_no_email_match_counted_as_unresolved PASSED [ 60%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestAutoResolveAll::test_no_mappings_returns_zero_counts PASSED [ 60%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestAutoResolveAll::test_resolve_result_has_tool_field PASSED [ 60%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestUpsertToolUser::test_upsert_creates_new_mapping_when_user_exists PASSED [ 61%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestUpsertToolUser::test_upsert_returns_none_when_no_user_match PASSED [ 61%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestUpsertToolUser::test_upsert_never_overwrites_manual_mapping PASSED [ 61%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestGetUnresolvedMappings::test_get_unresolved_returns_list PASSED [ 62%]
+projects/engg-intelligence/tests/unit/test_identity_resolver.py::TestGetUnresolvedMappings::test_resolve_all_tools_runs_for_each_tool PASSED [ 62%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientEqualDistribution::test_gini_equal_distribution_near_zero PASSED [ 62%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientEqualDistribution::test_gini_single_value_returns_zero PASSED [ 63%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientEqualDistribution::test_gini_empty_list_returns_zero PASSED [ 63%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientEqualDistribution::test_gini_all_zero_returns_zero PASSED [ 63%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientUnequalDistribution::test_gini_unequal_distribution_near_one PASSED [ 64%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientUnequalDistribution::test_gini_extreme_inequality PASSED [ 64%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientUnequalDistribution::test_gini_score_equal_yields_100_fairness PASSED [ 64%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientUnequalDistribution::test_gini_score_unequal_yields_low_fairness PASSED [ 65%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestGiniCoefficientUnequalDistribution::test_gini_in_score_computation_equal PASSED [ 65%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestRepeatServicesThreshold::test_repeat_services_threshold_3 PASSED [ 65%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestRepeatServicesThreshold::test_service_with_2_incidents_not_repeat PASSED [ 66%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestRepeatServicesThreshold::test_service_with_5_incidents_is_repeat PASSED [ 66%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestRepeatServicesThreshold::test_no_services_yields_empty_repeat_list PASSED [ 67%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestIncidentLoadScoreRange::test_score_always_in_0_to_100[0.0-0.5-0-paging0] PASSED [ 67%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestIncidentLoadScoreRange::test_score_always_in_0_to_100[10.0-48.0-5-paging1] PASSED [ 67%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestIncidentLoadScoreRange::test_score_always_in_0_to_100[3.0-12.0-2-paging2] PASSED [ 68%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestIncidentLoadScoreRange::test_score_always_in_0_to_100[0.5-1.0-0-paging3] PASSED [ 68%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestIncidentLoadScoreRange::test_zero_incidents_yields_high_score PASSED [ 68%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestIncidentLoadScoreRange::test_high_incident_rate_yields_low_score PASSED [ 69%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestIncidentLoadScoreRange::test_score_is_float PASSED [ 69%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestRAGThresholds::test_rag_red_below_40 PASSED [ 69%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestRAGThresholds::test_rag_amber_at_40 PASSED [ 70%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestRAGThresholds::test_rag_green_at_70 PASSED [ 70%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestStatisticalHelpers::test_safe_mean_normal PASSED [ 70%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestStatisticalHelpers::test_safe_mean_empty_returns_none PASSED [ 71%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestStatisticalHelpers::test_safe_percentile_p50_of_five PASSED [ 71%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestStatisticalHelpers::test_safe_percentile_empty_returns_none PASSED [ 71%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestStatisticalHelpers::test_interpolate_score_green_zone PASSED [ 72%]
+projects/engg-intelligence/tests/unit/test_incident_load.py::TestStatisticalHelpers::test_interpolate_score_beyond_amber PASSED [ 72%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestAvgCycleTimeComputed::test_avg_cycle_time_computed_correctly_three_prs PASSED [ 72%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestAvgCycleTimeComputed::test_avg_cycle_time_single_pr PASSED [ 73%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestAvgCycleTimeComputed::test_avg_cycle_time_empty_list_returns_none PASSED [ 73%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestAvgCycleTimeComputed::test_p50_cycle_time_three_values PASSED [ 73%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestAvgCycleTimeComputed::test_p95_cycle_time_ten_values PASSED [ 74%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestStalePRDetection::test_stale_pr_detection_logic PASSED [ 74%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestStalePRDetection::test_stale_count_zero_yields_stale_score_100 PASSED [ 74%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestStalePRDetection::test_stale_count_high_lowers_score PASSED [ 75%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestStalePRDetection::test_stale_pr_threshold_days_is_3 PASSED [ 75%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestReviewCoverage::test_review_coverage_100_pct_yields_max_sub_score PASSED [ 75%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestReviewCoverage::test_review_coverage_excludes_unreviewed_pr PASSED [ 76%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestReviewCoverage::test_review_coverage_0_pct_yields_zero_sub_score PASSED [ 76%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestReviewCoverage::test_review_coverage_boundary_90_pct PASSED [ 76%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestEmptyTeamMetrics::test_empty_team_returns_zero_score_no_exception PASSED [ 77%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestEmptyTeamMetrics::test_all_none_metrics_no_exception PASSED [ 77%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestPRHealthScoreRange::test_score_always_in_0_to_100[0-100.0-0.0-1.0-1.0] PASSED [ 77%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestPRHealthScoreRange::test_score_always_in_0_to_100[5-50.0-20.0-48.0-12.0] PASSED [ 78%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestPRHealthScoreRange::test_score_always_in_0_to_100[2-80.0-10.0-24.0-4.0] PASSED [ 78%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestPRHealthScoreRange::test_score_always_in_0_to_100[0-None-None-None-None] PASSED [ 78%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestPRHealthScoreRange::test_score_always_in_0_to_100[10-0.0-100.0-200.0-100.0] PASSED [ 79%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestPRHealthScoreRange::test_score_is_float PASSED [ 79%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestRAGThresholds::test_rag_below_40_is_red PASSED [ 79%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestRAGThresholds::test_rag_at_40_is_amber PASSED [ 80%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestRAGThresholds::test_rag_below_70_is_amber PASSED [ 80%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestRAGThresholds::test_rag_at_70_is_green PASSED [ 80%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestRAGThresholds::test_rag_at_100_is_green PASSED [ 81%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestInterpolation::test_lerp_mid_point PASSED [ 81%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestInterpolation::test_lerp_clamps_below_x0 PASSED [ 81%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestInterpolation::test_lerp_clamps_above_x1 PASSED [ 82%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestInterpolation::test_interpolate_score_below_green_max_returns_100 PASSED [ 82%]
+projects/engg-intelligence/tests/unit/test_pr_health.py::TestInterpolation::test_interpolate_score_above_amber_max_returns_low PASSED [ 82%]
+projects/engg-intelligence/tests/unit/test_security.py::TestCreateAndVerifyAccessToken::test_create_and_verify_access_token_claims_match PASSED [ 83%]
+projects/engg-intelligence/tests/unit/test_security.py::TestCreateAndVerifyAccessToken::test_create_access_token_without_team_id_encodes_none PASSED [ 83%]
+projects/engg-intelligence/tests/unit/test_security.py::TestCreateAndVerifyAccessToken::test_create_access_token_contains_jti PASSED [ 84%]
+projects/engg-intelligence/tests/unit/test_security.py::TestCreateAndVerifyAccessToken::test_create_access_token_contains_iat_and_exp PASSED [ 84%]
+projects/engg-intelligence/tests/unit/test_security.py::TestExpiredToken::test_expired_token_raises_jwt_error PASSED [ 84%]
+projects/engg-intelligence/tests/unit/test_security.py::TestWrongSecret::test_wrong_secret_raises_jwt_error PASSED [ 85%]
+projects/engg-intelligence/tests/unit/test_security.py::TestBcryptHashing::test_bcrypt_verify_correct_password_returns_true PASSED [ 85%]
+projects/engg-intelligence/tests/unit/test_security.py::TestBcryptHashing::test_bcrypt_reject_wrong_password_returns_false PASSED [ 85%]
+projects/engg-intelligence/tests/unit/test_security.py::TestBcryptHashing::test_bcrypt_hash_is_not_plaintext PASSED [ 86%]
+projects/engg-intelligence/tests/unit/test_security.py::TestBcryptHashing::test_bcrypt_two_hashes_of_same_password_differ PASSED [ 86%]
+projects/engg-intelligence/tests/unit/test_security.py::TestRefreshToken::test_generate_refresh_token_is_urlsafe_string PASSED [ 86%]
+projects/engg-intelligence/tests/unit/test_security.py::TestRefreshToken::test_hash_refresh_token_is_sha256_hex PASSED [ 87%]
+projects/engg-intelligence/tests/unit/test_security.py::TestRefreshToken::test_hash_refresh_token_deterministic PASSED [ 87%]
+projects/engg-intelligence/tests/unit/test_security.py::TestRefreshToken::test_refresh_token_expires_at_is_future PASSED [ 87%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackDegradedInComposite::test_slack_excluded_composite_weights_sum_to_1 PASSED [ 88%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackDegradedInComposite::test_slack_weight_zero_after_exclusion PASSED [ 88%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackDegradedInComposite::test_composite_with_all_three_at_100_yields_100 PASSED [ 88%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestIsSlackDegraded::test_no_snapshot_means_degraded PASSED [ 89%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestIsSlackDegraded::test_snapshot_exists_means_not_degraded PASSED [ 89%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackSignalResponseSchema::test_slack_signal_degraded_response_fields PASSED [ 89%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackSignalResponseSchema::test_slack_signal_active_response_fields PASSED [ 90%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackWeightBoundaries::test_slack_default_weight_is_015 PASSED [ 90%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackWeightBoundaries::test_pr_health_default_weight_is_030 PASSED [ 90%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackWeightBoundaries::test_sprint_health_default_weight_is_030 PASSED [ 91%]
+projects/engg-intelligence/tests/unit/test_slack_signal.py::TestSlackWeightBoundaries::test_incident_load_default_weight_is_025 PASSED [ 91%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestSetupRequired::test_setup_required_returns_zero_score PASSED [ 91%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestSetupRequired::test_no_sub_scores_returns_zero PASSED [ 92%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestCompletionPctScoring::test_completion_80_pct_yields_100_sub_score PASSED [ 92%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestCompletionPctScoring::test_completion_100_pct_yields_100 PASSED [ 92%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestCompletionPctScoring::test_completion_50_pct_yields_amber_sub_score PASSED [ 93%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestCompletionPctScoring::test_completion_0_pct_yields_0 PASSED [ 93%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestCarryOverRate::test_zero_carry_over_yields_100_sub_score PASSED [ 93%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestCarryOverRate::test_low_carry_over_green PASSED [ 94%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestCarryOverRate::test_high_carry_over_lowers_score PASSED [ 94%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestBlockedTicketScoring::test_no_blocked_tickets_yields_100_sub_score PASSED [ 94%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestBlockedTicketScoring::test_one_blocked_ticket_lowers_score PASSED [ 95%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestBlockedTicketScoring::test_many_blocked_tickets_near_zero PASSED [ 95%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestVelocityTrend::test_velocity_trend_increasing_returns_100 PASSED [ 95%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestVelocityTrend::test_velocity_trend_flat_returns_70 PASSED [ 96%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestVelocityTrend::test_velocity_trend_declining_returns_low PASSED [ 96%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestVelocityTrend::test_velocity_trend_single_point_returns_70 PASSED [ 96%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestVelocityTrend::test_velocity_trend_empty_returns_70 PASSED [ 97%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestVelocityTrend::test_velocity_trend_zero_median_returns_70 PASSED [ 97%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestSprintHealthScoreRange::test_score_always_in_0_to_100[100.0-0.0-0.0-0-velocity0] PASSED [ 97%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestSprintHealthScoreRange::test_score_always_in_0_to_100[20.0-60.0-50.0-8-velocity1] PASSED [ 98%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestSprintHealthScoreRange::test_score_always_in_0_to_100[65.0-20.0-15.0-2-velocity2] PASSED [ 98%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestSprintHealthScoreRange::test_score_always_in_0_to_100[None-None-None-0-velocity3] PASSED [ 98%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestRAGThresholds::test_rag_at_39_is_red PASSED [ 99%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestRAGThresholds::test_rag_at_40_is_amber PASSED [ 99%]
+projects/engg-intelligence/tests/unit/test_sprint_health.py::TestRAGThresholds::test_rag_at_70_is_green PASSED [100%]
+
+=============================== warnings summary ===============================
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py::TestEngineerDigestScope::test_ac_engineer_digest_contains_only_own_data
+  /Users/kumarshailove/claude-forge/projects/engg-intelligence/.venv/lib/python3.13/site-packages/pytest_asyncio/plugin.py:916: PytestDeprecationWarning: Overriding the "event_loop_policy" fixture is deprecated and will be removed in a future version of pytest-asyncio. Use the "pytest_asyncio_loop_factories" hook to customize event loop creation.
+    warnings.warn(
+
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py: 7 warnings
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py: 4 warnings
+projects/engg-intelligence/tests/acceptance/test_ac_identity_resolution.py: 8 warnings
+projects/engg-intelligence/tests/acceptance/test_ac_nightly_pipeline.py: 6 warnings
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py: 13 warnings
+projects/engg-intelligence/tests/integration/test_admin_api.py: 11 warnings
+projects/engg-intelligence/tests/integration/test_auth_api.py: 14 warnings
+projects/engg-intelligence/tests/integration/test_digests_api.py: 6 warnings
+projects/engg-intelligence/tests/integration/test_engineers_api.py: 11 warnings
+projects/engg-intelligence/tests/integration/test_incidents_api.py: 13 warnings
+projects/engg-intelligence/tests/integration/test_overview_api.py: 9 warnings
+projects/engg-intelligence/tests/integration/test_teams_api.py: 10 warnings
+  <sys>:0: SAWarning: Can't sort tables for DROP; an unresolvable foreign key dependency exists between tables: teams, users; and backend does not support ALTER.  To restore at least a partial sort, apply use_alter=True to ForeignKey and ForeignKeyConstraint objects involved in the cycle to mark these as known cycles that will be ignored.
+
+projects/engg-intelligence/tests/acceptance/test_ac_digest_scoping.py: 2 warnings
+projects/engg-intelligence/tests/acceptance/test_ac_rbac.py: 11 warnings
+projects/engg-intelligence/tests/integration/test_admin_api.py: 11 warnings
+projects/engg-intelligence/tests/integration/test_auth_api.py: 2 warnings
+projects/engg-intelligence/tests/integration/test_digests_api.py: 2 warnings
+projects/engg-intelligence/tests/integration/test_engineers_api.py: 10 warnings
+projects/engg-intelligence/tests/integration/test_incidents_api.py: 12 warnings
+projects/engg-intelligence/tests/integration/test_overview_api.py: 8 warnings
+projects/engg-intelligence/tests/integration/test_teams_api.py: 10 warnings
+projects/engg-intelligence/tests/unit/test_security.py: 6 warnings
+  /Users/kumarshailove/claude-forge/projects/engg-intelligence/.venv/lib/python3.13/site-packages/jose/jwt.py:311: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = timegm(datetime.utcnow().utctimetuple())
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestSlackDegradedWeightsSum::test_ac_slack_degraded_excludes_from_composite_weights_sum_to_1
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:121: PytestWarning: The test <Function test_ac_slack_degraded_excludes_from_composite_weights_sum_to_1> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_slack_degraded_excludes_from_composite_weights_sum_to_1(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestSlackDegradedWeightsSum::test_ac_slack_weight_zero_after_degradation
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:127: PytestWarning: The test <Function test_ac_slack_weight_zero_after_degradation> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_slack_weight_zero_after_degradation(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestSlackDegradedWeightsSum::test_ac_custom_slack_degraded_also_sums_to_1
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:132: PytestWarning: The test <Function test_ac_custom_slack_degraded_also_sums_to_1> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_custom_slack_degraded_also_sums_to_1(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_39_is_red
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:170: PytestWarning: The test <Function test_ac_rag_boundary_39_is_red> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_39_is_red(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_39_99_is_red
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:174: PytestWarning: The test <Function test_ac_rag_boundary_39_99_is_red> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_39_99_is_red(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_40_is_amber
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:178: PytestWarning: The test <Function test_ac_rag_boundary_40_is_amber> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_40_is_amber(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_40_01_is_amber
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:182: PytestWarning: The test <Function test_ac_rag_boundary_40_01_is_amber> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_40_01_is_amber(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_69_is_amber
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:185: PytestWarning: The test <Function test_ac_rag_boundary_69_is_amber> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_69_is_amber(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_69_99_is_amber
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:188: PytestWarning: The test <Function test_ac_rag_boundary_69_99_is_amber> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_69_99_is_amber(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_70_is_green
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:191: PytestWarning: The test <Function test_ac_rag_boundary_70_is_green> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_70_is_green(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_70_01_is_green
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:195: PytestWarning: The test <Function test_ac_rag_boundary_70_01_is_green> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_70_01_is_green(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_100_is_green
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:198: PytestWarning: The test <Function test_ac_rag_boundary_100_is_green> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_100_is_green(self):
+
+projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py::TestRAGBoundaries::test_ac_rag_boundary_0_is_red
+  projects/engg-intelligence/tests/acceptance/test_ac_health_scoring.py:201: PytestWarning: The test <Function test_ac_rag_boundary_0_is_red> is marked with '@pytest.mark.asyncio' but it is not an async function. Please remove the asyncio mark. If the test is not marked explicitly, check for global marks applied via 'pytestmark'.
+    def test_ac_rag_boundary_0_is_red(self):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================ 287 passed, 7 skipped, 200 warnings in 37.03s =================

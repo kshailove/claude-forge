@@ -1,0 +1,212 @@
+# =============================================================================
+# engg-intelligence Helm Chart — Default Values
+# Override with: helm install engg-intelligence ./helm/engg-intelligence -f custom-values.yaml
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Global image settings
+# ---------------------------------------------------------------------------
+image:
+  repository: your-registry/engg-intelligence
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+# ---------------------------------------------------------------------------
+# API deployment (FastAPI / uvicorn)
+# ---------------------------------------------------------------------------
+api:
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
+  # Readiness probe — waits until /health returns 200
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 8000
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    failureThreshold: 3
+  # Liveness probe — restarts container if /health fails 3 times
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 20
+    failureThreshold: 3
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8000
+
+# ---------------------------------------------------------------------------
+# Celery workers
+# ---------------------------------------------------------------------------
+workers:
+  github:
+    replicaCount: 2
+    queues: "q_github"
+    concurrency: 4
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "512Mi"
+      limits:
+        cpu: "1000m"
+        memory: "1Gi"
+
+  pm:
+    replicaCount: 2
+    queues: "q_jira_clickup"
+    concurrency: 4
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "512Mi"
+      limits:
+        cpu: "1000m"
+        memory: "1Gi"
+
+  incidents:
+    replicaCount: 1
+    queues: "q_incidents"
+    concurrency: 2
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+
+  slack:
+    replicaCount: 1
+    queues: "q_slack"
+    concurrency: 2
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+
+  keka:
+    replicaCount: 1
+    queues: "q_keka"
+    concurrency: 1
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "250m"
+        memory: "512Mi"
+
+  digest:
+    replicaCount: 1
+    queues: "q_digest"
+    concurrency: 2
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+
+# ---------------------------------------------------------------------------
+# Celery Beat — ALWAYS exactly 1 replica (hardcoded in template)
+# Do NOT override this; multiple Beat instances cause duplicate task firing.
+# ---------------------------------------------------------------------------
+beat:
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "128Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+
+# ---------------------------------------------------------------------------
+# HPA (Horizontal Pod Autoscaler)
+# ---------------------------------------------------------------------------
+hpa:
+  api:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 70
+  workerGithub:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 70
+
+# ---------------------------------------------------------------------------
+# Ingress
+# ---------------------------------------------------------------------------
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
+    # nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+  host: engg-intelligence.yourcompany.com
+  tls:
+    enabled: false
+    secretName: engg-intelligence-tls
+
+# ---------------------------------------------------------------------------
+# Environment variables — sourced from Kubernetes Secret (see secret.yaml)
+# All values here become entries in the Secret; override at deploy time.
+# ---------------------------------------------------------------------------
+env:
+  DATABASE_URL: "postgresql+asyncpg://engg:REPLACE_ME@postgres:5432/engg_intelligence"
+  USE_TIMESCALEDB: "true"
+  REDIS_URL: "redis://redis:6379/0"
+  CELERY_BROKER_URL: "redis://redis:6379/0"
+  CELERY_RESULT_BACKEND: "redis://redis:6379/1"
+  # SECURITY — replace before deploying
+  JWT_SECRET: "REPLACE_ME_WITH_A_64_CHAR_HEX_STRING"
+  DB_ENCRYPTION_KEY: "REPLACE_ME_WITH_EXACTLY_64_HEX_CHARS_0000000000000000000000000000000"
+  APP_URL: "https://engg-intelligence.yourcompany.com"
+  ENV: "production"
+  LOG_LEVEL: "INFO"
+  # Email
+  SENDGRID_API_KEY: ""
+  SMTP_HOST: ""
+  SMTP_PORT: "587"
+  SMTP_USER: ""
+  SMTP_PASSWORD: ""
+  SMTP_FROM_ADDRESS: "noreply@yourcompany.com"
+  # Slack OAuth
+  SLACK_CLIENT_ID: ""
+  SLACK_CLIENT_SECRET: ""
+
+# ---------------------------------------------------------------------------
+# Prometheus
+# ---------------------------------------------------------------------------
+prometheus:
+  scrapeInterval: "30s"
+  scrapeTimeout: "10s"
+
+# ---------------------------------------------------------------------------
+# Grafana dashboards ConfigMap name
+# ---------------------------------------------------------------------------
+grafana:
+  dashboardsConfigMap: "engg-intelligence-grafana-dashboards"
+
+# ---------------------------------------------------------------------------
+# Node selector / tolerations / affinity
+# ---------------------------------------------------------------------------
+nodeSelector: {}
+tolerations: []
+affinity: {}

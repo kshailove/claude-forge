@@ -1,0 +1,4 @@
+# One domain per line. Comments (lines starting with #) are ignored.
+stripe.com
+notion.so
+freshdesk.com
