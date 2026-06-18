@@ -17,9 +17,7 @@ import warnings
 from typing import Optional
 
 import tiktoken
-from crewai import Crew, Process
-from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_openai import ChatOpenAI
+from crewai import Crew, LLM, Process
 
 from agents import (
     make_brand_agent,
@@ -34,7 +32,7 @@ from tasks import (
     make_research_task,
     make_value_prop_task,
 )
-from tools import KnowledgeSearchTool, WebsiteThemeScraper
+from tools import KnowledgeSearchTool, TavilyWebSearch, WebsiteThemeScraper
 
 
 _TIKTOKEN_ENC = tiktoken.get_encoding("cl100k_base")
@@ -89,21 +87,21 @@ def _truncate_to_tokens(text: str, max_tokens: int = MAX_RESEARCH_TOKENS) -> str
     return _TIKTOKEN_ENC.decode(tokens[:max_tokens])
 
 
-def _build_llm(prospect_name: str, company_name: str) -> ChatOpenAI:
+def _build_llm(prospect_name: str, company_name: str) -> LLM:
     """
-    Build a ChatOpenAI instance with optional LangFuse callback.
+    Build a crewai LLM instance with optional LangFuse callback.
 
     Args:
         prospect_name: Used to key the LangFuse trace.
         company_name: Used to key the LangFuse trace.
 
     Returns:
-        A configured ChatOpenAI instance.
+        A configured crewai LLM instance.
     """
     model_name = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
     langfuse_handler = _make_langfuse_handler(prospect_name, company_name)
     callbacks = [langfuse_handler] if langfuse_handler else []
-    return ChatOpenAI(model=model_name, temperature=0.7, callbacks=callbacks)
+    return LLM(model=model_name, temperature=0.7, callbacks=callbacks)
 
 
 def run_for_prospect(
@@ -147,7 +145,7 @@ def run_for_prospect(
     # and phase 2 (value prop + presentation) spans appear under the same trace in LangFuse.
     llm = _build_llm(prospect_name, company_name)
 
-    tavily_tool = TavilySearchResults(k=3)
+    tavily_tool = TavilyWebSearch(k=3)
     theme_tool = WebsiteThemeScraper()
     knowledge_tool = KnowledgeSearchTool(knowledge_store=knowledge_store)
 

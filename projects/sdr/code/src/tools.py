@@ -250,6 +250,31 @@ class WebsiteThemeScraper(BaseTool):
 
 
 # ---------------------------------------------------------------------------
+# TavilyWebSearch
+# ---------------------------------------------------------------------------
+
+class TavilyWebSearch(BaseTool):
+    """
+    CrewAI-native wrapper around LangChain's TavilySearchResults.
+
+    Input: search query string.
+    Output: formatted string of search results.
+    """
+
+    name: str = "TavilyWebSearch"
+    description: str = (
+        "Search the web for recent information about a company, product, or topic. "
+        "Input: a focused search query string."
+    )
+    k: int = 3
+
+    def _run(self, query: str) -> str:
+        from langchain_community.tools.tavily_search import TavilySearchResults
+        results = TavilySearchResults(k=self.k).run(query)
+        return str(results)
+
+
+# ---------------------------------------------------------------------------
 # KnowledgeSearchTool
 # ---------------------------------------------------------------------------
 

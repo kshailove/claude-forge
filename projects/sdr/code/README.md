@@ -30,10 +30,10 @@ cp .env.example .env
 # Edit input/prospects.txt — one domain per line
 
 # 7. Run a dry run to check your setup and estimate cost
-python src/main.py --company hiver --dry-run
+python code/src/main.py --company hiver --dry-run
 
 # 8. Generate presentations
-python src/main.py --company hiver
+python code/src/main.py --company hiver
 ```
 
 Output HTML files are written to `output/hiver/presentation_<prospect>.html`.

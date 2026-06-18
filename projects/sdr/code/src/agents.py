@@ -9,22 +9,20 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
-from crewai import Agent
-from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_openai import ChatOpenAI
+from crewai import Agent, LLM
 
-from tools import KnowledgeSearchTool, WebsiteThemeScraper
+from tools import KnowledgeSearchTool, TavilyWebSearch, WebsiteThemeScraper
 
 
-def make_researcher_agent(llm: ChatOpenAI, tavily_tool: TavilySearchResults) -> Agent:
+def make_researcher_agent(llm: LLM, tavily_tool: TavilyWebSearch) -> Agent:
     """
     Create Agent 1 — Business Intelligence Researcher.
 
     Conducts 2–3 targeted searches about the prospect using Tavily.
 
     Args:
-        llm: A configured ChatOpenAI instance.
-        tavily_tool: A TavilySearchResults tool instance (k=3).
+        llm: A configured LLM instance.
+        tavily_tool: A TavilyWebSearch tool instance (k=3).
 
     Returns:
         A CrewAI Agent configured for prospect research.
@@ -48,14 +46,14 @@ def make_researcher_agent(llm: ChatOpenAI, tavily_tool: TavilySearchResults) -> 
     )
 
 
-def make_brand_agent(llm: ChatOpenAI, theme_tool: WebsiteThemeScraper) -> Agent:
+def make_brand_agent(llm: LLM, theme_tool: WebsiteThemeScraper) -> Agent:
     """
     Create Agent 2 — Web Design and Brand Analyst.
 
     Extracts visual brand identity (colours, fonts) from the prospect's homepage.
 
     Args:
-        llm: A configured ChatOpenAI instance.
+        llm: A configured LLM instance.
         theme_tool: A WebsiteThemeScraper tool instance.
 
     Returns:
@@ -80,14 +78,14 @@ def make_brand_agent(llm: ChatOpenAI, theme_tool: WebsiteThemeScraper) -> Agent:
     )
 
 
-def make_value_prop_agent(llm: ChatOpenAI, knowledge_tool: KnowledgeSearchTool) -> Agent:
+def make_value_prop_agent(llm: LLM, knowledge_tool: KnowledgeSearchTool) -> Agent:
     """
     Create Agent 3 — Value Proposition Strategist.
 
     Retrieves relevant knowledge chunks and maps them to prospect pain points.
 
     Args:
-        llm: A configured ChatOpenAI instance.
+        llm: A configured LLM instance.
         knowledge_tool: A KnowledgeSearchTool instance connected to the company's KB.
 
     Returns:
@@ -112,14 +110,14 @@ def make_value_prop_agent(llm: ChatOpenAI, knowledge_tool: KnowledgeSearchTool) 
     )
 
 
-def make_presentation_agent(llm: ChatOpenAI) -> Agent:
+def make_presentation_agent(llm: LLM) -> Agent:
     """
     Create Agent 4 — Presentation Designer.
 
     Generates the complete 10-slide self-contained HTML presentation.
 
     Args:
-        llm: A configured ChatOpenAI instance.
+        llm: A configured LLM instance.
 
     Returns:
         A CrewAI Agent configured for HTML presentation generation.
