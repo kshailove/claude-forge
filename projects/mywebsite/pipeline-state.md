@@ -9,4 +9,4 @@
 | implement  | ✅ done    | code/, chatbot/              | approved      | Build passes; 388KB JS (122KB gz); 41 files |
 | review     | ✅ done    | docs/review.md               | approved      | 2 critical + 3 major fixed; build clean |
 | test-write | ✅ done    | docs/test-plan.md            | approved      |       |
-| test-run   | ✅ done    | tests/last-run.txt           | —             | 69 tests (54 React + 15 Python); all passing; 0 failures |
+| test-run   | ✅ done    | tests/last-run.txt           | approved      | 69 tests (54 React + 15 Python); all passing; 0 failures |
