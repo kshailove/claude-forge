@@ -83,14 +83,10 @@ export default function HeroSection() {
               </svg>
             </a>
             <a
-              href="#about"
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
-              }}
+              href={heroContent.ctaSecondaryHref}
               className="inline-flex items-center gap-2 ml-4 px-8 py-4 border border-white/20 text-[var(--color-text)] font-mono text-sm rounded-full hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
             >
-              Explore My Work
+              {heroContent.ctaSecondaryLabel}
             </a>
           </motion.div>
         </div>

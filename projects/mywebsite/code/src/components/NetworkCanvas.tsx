@@ -53,6 +53,7 @@ export default function NetworkCanvas() {
     let particles: Particle[] = []
 
     const init = () => {
+      if (canvas.offsetWidth === 0 || canvas.offsetHeight === 0) return
       canvas.width = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
 
@@ -150,30 +151,29 @@ export default function NetworkCanvas() {
       rafRef.current = requestAnimationFrame(loop)
     }
 
+    // Listen on window since canvas has pointer-events:none (clicks pass through to content)
     const onMouse = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      // Only activate repulsion when mouse is within the canvas bounds
+      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+        mouseRef.current = { x, y }
+      } else {
+        mouseRef.current = { x: -9999, y: -9999 }
       }
-    }
-
-    const onMouseLeave = () => {
-      mouseRef.current = { x: -9999, y: -9999 }
     }
 
     init()
     rafRef.current = requestAnimationFrame(loop)
 
     window.addEventListener('resize', init)
-    canvas.addEventListener('mousemove', onMouse)
-    canvas.addEventListener('mouseleave', onMouseLeave)
+    window.addEventListener('mousemove', onMouse)
 
     return () => {
       cancelAnimationFrame(rafRef.current)
       window.removeEventListener('resize', init)
-      canvas.removeEventListener('mousemove', onMouse)
-      canvas.removeEventListener('mouseleave', onMouseLeave)
+      window.removeEventListener('mousemove', onMouse)
     }
   }, [])
 

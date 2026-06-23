@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ReactLenis, type LenisRef } from 'lenis/react'
 import { frame, cancelFrame } from 'motion/react'
 import NavigationBar from './components/NavigationBar'
@@ -10,14 +10,21 @@ import HiverSection from './components/HiverSection'
 import ContactSection from './components/ContactSection'
 import ChatbotWidget from './components/ChatbotWidget'
 
-// Detect reduced motion for Lenis options
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
 // HuggingFace Space URL — update once the Space is created
 const CHATBOT_SPACE_URL = 'https://kumarshailove-portfolio-chat.hf.space'
 
 export default function App() {
   const lenisRef = useRef<LenisRef>(null)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   useEffect(() => {
     function update(data: { timestamp: number }) {

@@ -99,7 +99,7 @@ export default function ChatbotWidget({ spaceUrl }: ChatbotWidgetProps) {
                 className={`w-full h-full border-none transition-opacity duration-300 ${
                   iframeLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
-                allow="microphone"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
               />
             </div>
           </motion.div>

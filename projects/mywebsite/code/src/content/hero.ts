@@ -5,6 +5,8 @@ export interface HeroContent {
   tagline: string
   ctaLabel: string
   ctaHref: string
+  ctaSecondaryLabel: string
+  ctaSecondaryHref: string
 }
 
 export const heroContent: HeroContent = {
@@ -12,6 +14,8 @@ export const heroContent: HeroContent = {
   role: 'VP Engineering · Organizational Architect · AI Transformation Leader',
   headline: 'I build engineering organizations that compound business value.',
   tagline: 'Engineering Organizations. Engineering Leaders. Engineering the Future.',
-  ctaLabel: "Let's connect",
-  ctaHref: 'mailto:kumar@grexit.com',
+  ctaLabel: 'Explore My Work',
+  ctaHref: '#about',
+  ctaSecondaryLabel: "Let's connect",
+  ctaSecondaryHref: '#contact',
 }

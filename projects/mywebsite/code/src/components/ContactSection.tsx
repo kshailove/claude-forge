@@ -68,7 +68,7 @@ export default function ContactSection() {
         {/* Footer */}
         <div className="mt-24 pt-8 border-t border-white/10">
           <p className="font-mono text-xs text-[var(--color-muted)]">
-            © 2025 Kumar Shailove. Built with React, Motion, and Lenis.
+            © 2026 Kumar Shailove. Built with React, Motion, and Lenis.
           </p>
         </div>
       </div>

@@ -7,29 +7,38 @@ export default function NavigationBar() {
   const [visible, setVisible] = useState(false)
   const [activeSection, setActiveSection] = useState<string>('')
 
-  useLenis(({ scroll }) => {
+  const lenis = useLenis(({ scroll }) => {
     setVisible(scroll > window.innerHeight * 0.8)
 
     // Scroll-spy: find which section occupies the viewport center
-    const sectionIds = ['about', 'philosophy', 'experience', 'hiver', 'contact']
+    const sectionIds = ['hero', 'about', 'philosophy', 'experience', 'hiver', 'contact']
     const viewportMid = window.innerHeight / 2
+    let matched = ''
 
     for (const id of sectionIds) {
       const el = document.getElementById(id)
       if (!el) continue
       const rect = el.getBoundingClientRect()
       if (rect.top <= viewportMid && rect.bottom >= viewportMid) {
-        setActiveSection(id)
-        return
+        matched = id
+        break
       }
     }
+
+    setActiveSection(matched)
   })
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     const sectionId = href.slice(1)
+    if (sectionId === 'hero') {
+      lenis?.scrollTo(0, { offset: 0 })
+      return
+    }
     const el = document.getElementById(sectionId)
-    if (el) {
+    if (el && lenis) {
+      lenis.scrollTo(el, { offset: -80 })
+    } else if (el) {
       el.scrollIntoView({ behavior: 'smooth' })
     }
   }

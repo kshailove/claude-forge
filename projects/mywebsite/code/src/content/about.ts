@@ -7,6 +7,7 @@ export interface AboutContent {
   opening: string
   careerArc: CareerStep[]
   bodyParagraph: string
+  pullQuote: string
   closing: string
   photoSrc: string
   photoAlt: string
@@ -27,7 +28,10 @@ export const aboutContent: AboutContent = {
   ],
 
   bodyParagraph:
-    'What I discovered along the way is that the most important system an engineering leader builds is not a product. It is an engineering organization — the human system that decides how work flows, how decisions get made, how people grow, and how technology creates durable business leverage. I call this discipline Engineering Leverage: the compounding return you earn when your engineering organization is designed, not just assembled.',
+    'What I discovered along the way is that the most important system an engineering leader builds is not a product. It is an engineering organization — the human system that decides how work flows, how decisions get made, how people grow, and how technology creates durable business leverage.',
+
+  pullQuote:
+    'Engineering Leverage: the compounding return you earn when your engineering organization is designed, not just assembled.',
 
   closing:
     'Today, I partner with founders, CEOs, and boards to build engineering organizations that don\'t just ship features — they compound value. If you are building something ambitious and need an engineering leader who has done this before, I\'d love to talk.',

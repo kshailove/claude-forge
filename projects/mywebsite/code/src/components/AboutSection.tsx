@@ -110,8 +110,7 @@ export default function AboutSection() {
 
           <blockquote className="border-l-2 border-[var(--color-accent)] pl-6 py-2 my-4">
             <p className="font-serif italic text-xl md:text-2xl text-[var(--color-text)] leading-snug">
-              "Engineering Leverage: the compounding return you earn when your engineering
-              organization is designed, not just assembled."
+              "{aboutContent.pullQuote}"
             </p>
           </blockquote>
 
