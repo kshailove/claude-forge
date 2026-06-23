@@ -2,8 +2,8 @@
 
 | Stage      | Status     | Artifact                     | Gate Decision | Notes |
 |------------|------------|------------------------------|---------------|-------|
-| research   | ✅ done    | docs/research.md             | pending gate  |       |
-| plan       | ⏳ pending | docs/plan.md                 | —             |       |
+| research   | ✅ done    | docs/research.md             | approved      |       |
+| plan       | 🔄 active  | docs/plan.md                 | —             |       |
 | prd        | ⏳ pending | docs/prd.md                  | —             |       |
 | spec       | ⏳ pending | docs/spec.md                 | —             |       |
 | implement  | ⏳ pending | code/                        | —             |       |
