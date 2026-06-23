@@ -7,6 +7,6 @@
 | prd        | ✅ done    | docs/prd.md                  | approved      |       |
 | spec       | ✅ done    | docs/tech-spec.md            | approved      |       |
 | implement  | ✅ done    | code/, chatbot/              | approved      | Build passes; 388KB JS (122KB gz); 41 files |
-| review     | 🔄 active  | docs/review.md               | —             |       |
-| test-write | ⏳ pending | docs/test-plan.md            | —             |       |
+| review     | ✅ done    | docs/review.md               | approved      | 2 critical + 3 major fixed; build clean |
+| test-write | 🔄 active  | docs/test-plan.md            | —             |       |
 | test-run   | ⏳ pending | —                            | —             |       |
