@@ -45,7 +45,7 @@ export default function HeroSection() {
         <div className="max-w-4xl">
           {/* Name */}
           <motion.div {...makeEntryProps(0)}>
-            <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl text-[var(--color-text)] leading-tight mb-4">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] leading-tight mb-4">
               {heroContent.name}
             </h1>
           </motion.div>
@@ -59,7 +59,7 @@ export default function HeroSection() {
 
           {/* Headline */}
           <motion.div {...makeEntryProps(0.15)}>
-            <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-[var(--color-text)] leading-snug mb-6 max-w-3xl">
+            <p className="font-serif text-xl md:text-2xl lg:text-3xl text-[var(--color-text)] leading-snug mb-6 max-w-3xl">
               {heroContent.headline}
             </p>
           </motion.div>

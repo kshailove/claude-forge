@@ -88,3 +88,21 @@ src/
 └── hooks/
     └── useScrollAnimation.ts  # Reusable whileInView reveal hook
 ```
+
+## Deployment Steps
+To go live, do these three things in order:
+
+1. Add your photo
+projects/mywebsite/code/public/images/profile.jpg
+
+2. Deploy the chatbot
+- Create a HuggingFace Space (SDK: Gradio, Runtime: CPU Basic)
+- Upload the 3 files from projects/mywebsite/chatbot/
+- Add ANTHROPIC_API_KEY as a Space Secret
+- Update CHATBOT_SPACE_URL in projects/mywebsite/code/src/App.tsx with your Space URL
+
+3. Deploy to Vercel
+cd projects/mywebsite/code
+npx vercel --prod
+
+When you're ready for V2 — custom domain, testimonials section, or any content tweaks — just say the word.

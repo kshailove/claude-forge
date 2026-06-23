@@ -36,7 +36,7 @@ export const aboutContent: AboutContent = {
   closing:
     'Today, I partner with founders, CEOs, and boards to build engineering organizations that don\'t just ship features — they compound value. If you are building something ambitious and need an engineering leader who has done this before, I\'d love to talk.',
 
-  photoSrc: '/images/profile.jpg',
+  photoSrc: '/images/Kumar.jpeg',
   photoAlt: 'Kumar Shailove',
   photoPlaceholderInitials: 'KS',
 }

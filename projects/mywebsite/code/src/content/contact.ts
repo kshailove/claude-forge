@@ -5,6 +5,8 @@ export interface ContactContent {
   emailLabel: string
   linkedinUrl: string
   linkedinLabel: string
+  githubUrl: string
+  githubLabel: string
   topmateUrl: string
   topmateLabel: string
 }
@@ -16,7 +18,9 @@ export const contactContent: ContactContent = {
   email: 'kumar@grexit.com',
   emailLabel: 'kumar@grexit.com',
   linkedinUrl: 'https://www.linkedin.com/in/kumar-shailove/',
-  linkedinLabel: 'LinkedIn Profile',
+  linkedinLabel: 'LinkedIn',
+  githubUrl: 'https://github.com/kshailove/',
+  githubLabel: 'GitHub',
   topmateUrl: 'https://topmate.io/kumar_shailove',
   topmateLabel: 'Book a free coaching session',
 }
