@@ -8,5 +8,5 @@
 | spec       | ✅ done    | docs/tech-spec.md            | approved      |       |
 | implement  | ✅ done    | code/, chatbot/              | approved      | Build passes; 388KB JS (122KB gz); 41 files |
 | review     | ✅ done    | docs/review.md               | approved      | 2 critical + 3 major fixed; build clean |
-| test-write | 🔄 active  | docs/test-plan.md            | —             |       |
-| test-run   | ⏳ pending | —                            | —             |       |
+| test-write | ✅ done    | docs/test-plan.md            | approved      |       |
+| test-run   | ✅ done    | tests/last-run.txt           | —             | 69 tests (54 React + 15 Python); all passing; 0 failures |
