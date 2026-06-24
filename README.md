@@ -21,31 +21,45 @@ npm install -g @anthropic/claude-code
 gh repo clone your-org/claude-forge && cd claude-forge
 chmod +x framework/hooks/*.sh
 
-# 3. Write your brief
-mkdir -p projects/my-app
-# edit projects/my-app/brief.md
+# 3. Create your project directory (outside claude-forge — its own repo)
+mkdir -p ../my-app
 
-# 4. Run
+# 4. Register it in projects.conf
+echo "my-app=../my-app" >> projects.conf
+
+# 5. Write your brief
+# edit ../my-app/brief.md
+
+# 6. Run
 claude
-# Then say: "Start the pipeline for projects/my-app"
+# Then say: "Start the pipeline for my-app"
 ```
 
 ## Full Guide
 
 See **[GETTING-STARTED.md](GETTING-STARTED.md)** for complete instructions.
 
-## Example Project
+## Project Layout
 
-See `projects/hiver-intelligence/brief.md` for a real-world example brief
-(cross-tool intelligence dashboard for engineering managers).
-
-## Framework Structure
+Each project lives **outside** the claude-forge directory in its own folder and git repo,
+so you can make each one public, private, or untracked independently.
 
 ```
-CLAUDE.md                    ← orchestrator
-framework/
-  agents/                    ← 9 specialist subagents
-  skills/                    ← reusable instructions
-  hooks/                     ← git + validation scripts
-projects/                    ← your projects live here
+gh/
+  claude-forge/          ← this repo (public)
+    projects.conf        ← maps project names → directories
+    CLAUDE.md
+    framework/
+      agents/            ← 9 specialist subagents
+      skills/            ← reusable instructions
+      hooks/             ← git + validation scripts
+
+  my-app/                ← your project (its own repo, public or private)
+    brief.md
+    pipeline-state.md
+    docs/  code/  tests/
+
+  another-project/       ← another project, independently versioned
+    brief.md
+    ...
 ```
