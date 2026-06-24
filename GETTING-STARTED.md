@@ -40,18 +40,30 @@ at key decision points.
 
 ## How to Start a New Project
 
+Projects live **outside** the claude-forge directory — each in their own folder and git repo,
+so you can make each one public, private, or untracked independently.
+
 ### Step 1 — Create your project folder
 
 ```bash
-mkdir -p projects/my-project
+mkdir -p ../my-project
 ```
 
-Replace `my-project` with a short slug for your project.
-Examples: `hiver-intelligence`, `todo-app`, `ecommerce-site`
+Put it anywhere you like. Sibling to claude-forge is the convention, but an absolute path works too.
 
-### Step 2 — Write your brief
+### Step 2 — Register it in projects.conf
 
-Create `projects/my-project/brief.md`. This is the most important input in the
+Open `projects.conf` (in the claude-forge root) and add one line:
+
+```
+my-project=../my-project
+```
+
+Use a relative path (relative to claude-forge) or an absolute path.
+
+### Step 3 — Write your brief
+
+Create `../my-project/brief.md`. This is the most important input in the
 entire pipeline. The better your brief, the better everything that follows.
 
 **Option A — Write it yourself** using this template:
@@ -102,7 +114,7 @@ Use the skill at framework/skills/brief-writer.md.
 
 Claude will interview you and write the brief.
 
-### Step 3 — Start the pipeline
+### Step 4 — Start the pipeline
 
 Open Claude Code in the `claude-forge` directory:
 
@@ -114,10 +126,11 @@ claude
 Then say:
 
 ```
-Start the pipeline for projects/my-project
+Start the pipeline for my-project
 ```
 
 Claude Code will:
+- Look up `my-project` in `projects.conf` to find its directory
 - Run `framework/hooks/pipeline-start.sh my-project`
 - Begin Stage 1 (Research) automatically
 - Work through stages, stopping at human gates for your input
@@ -147,7 +160,7 @@ and acceptance criteria.
 ```
 ════════════════════════════════════════
 ⛔ GATE: PRD
-Artifact: projects/my-project/docs/prd.md
+Artifact: ../my-project/docs/prd.md
 ════════════════════════════════════════
 Summary:
 • 8 must-have features defined
@@ -218,27 +231,28 @@ All tests passing. You review and approve the completed project.
 Your project directory will contain:
 
 ```
-projects/my-project/
-  brief.md                    ← your original brief
-  pipeline-state.md           ← what ran, when, decisions made
+../my-project/              ← its own git repo, separate from claude-forge
+  brief.md                  ← your original brief
+  pipeline-state.md         ← what ran, when, decisions made
   docs/
-    research.md               ← competitive + tech research
-    plan.md                   ← scope, milestones, risks
-    prd.md                    ← living requirements document
-    tech-spec.md              ← architecture reference
-    review.md                 ← known issues log
+    research.md             ← competitive + tech research
+    plan.md                 ← scope, milestones, risks
+    prd.md                  ← living requirements document
+    tech-spec.md            ← architecture reference
+    review.md               ← known issues log
   code/
     [all implementation files]
-    README.md                 ← how to run it
-    .env.example              ← required environment variables
-    implementation-index.md   ← what was built
+    README.md               ← how to run it
+    .env.example            ← required environment variables
+    implementation-index.md ← what was built
   tests/
     [all test files]
-    README.md                 ← how to run tests
-    last-run.txt              ← most recent test output
+    README.md               ← how to run tests
+    last-run.txt            ← most recent test output
 ```
 
-Everything is committed to git with one commit per stage.
+Everything is committed to the **project's own git repo** with one commit per stage.
+You can push each project to its own GitHub repo (public or private) independently.
 
 **Hand `code/` to your team** as the starting scaffold.
 **Use `docs/prd.md` and `docs/tech-spec.md`** as your living project documentation.
@@ -250,7 +264,7 @@ Everything is committed to git with one commit per stage.
 If you stop mid-pipeline, just re-open Claude Code and say:
 
 ```
-Resume the pipeline for projects/my-project
+Resume the pipeline for my-project
 ```
 
 Claude will read `pipeline-state.md` and continue from where it left off.
@@ -262,7 +276,7 @@ Claude will read `pipeline-state.md` and continue from where it left off.
 If you want to re-run just one stage (e.g. you edited the PRD and want a fresh tech spec):
 
 ```
-Re-run the spec stage for projects/my-project using the updated prd.md
+Re-run the spec stage for my-project using the updated prd.md
 ```
 
 ---
@@ -271,9 +285,10 @@ Re-run the spec stage for projects/my-project using the updated prd.md
 
 Each project is completely independent. Just:
 
-1. `mkdir -p projects/new-project`
-2. Write `projects/new-project/brief.md`
-3. Tell Claude Code: `Start the pipeline for projects/new-project`
+1. `mkdir -p ../new-project` (or wherever you want it)
+2. Add `new-project=../new-project` to `projects.conf`
+3. Write `../new-project/brief.md`
+4. Tell Claude Code: `Start the pipeline for new-project`
 
 ---
 
@@ -312,20 +327,21 @@ Each project is completely independent. Just:
 
 | You want to... | Say... |
 |----------------|--------|
-| Start fresh | `Start the pipeline for projects/hiver-intelligence` |
-| Resume | `Resume the pipeline for projects/hiver-intelligence` |
-| Re-run one stage | `Re-run the prd stage for projects/hiver-intelligence` |
+| Start fresh | `Start the pipeline for hiver-intelligence` |
+| Resume | `Resume the pipeline for hiver-intelligence` |
+| Re-run one stage | `Re-run the prd stage for hiver-intelligence` |
 | Write a brief | `Help me write a brief for a new project. I want to build X` |
-| Jump to implementation | `Run only the implement stage for projects/my-project` |
-| See project status | `Show me the pipeline state for projects/my-project` |
+| Jump to implementation | `Run only the implement stage for my-project` |
+| See project status | `Show me the pipeline state for my-project` |
 
 ---
 
 ## Framework Directory Reference
 
 ```
-claude-forge/
+claude-forge/                        ← public repo (the framework)
   CLAUDE.md                          ← orchestrator (main brain)
+  projects.conf                      ← maps project names → directories
   framework/
     agents/
       research/CLAUDE.md             ← research subagent
@@ -344,10 +360,14 @@ claude-forge/
       pipeline-start.sh              ← project init + git setup
       post-stage.sh                  ← git commit after each stage
       pre-gate.sh                    ← validate artifact before review
-  projects/
-    hiver-intelligence/              ← example project
-      brief.md
-    your-project/                    ← your projects go here
-      brief.md
   GETTING-STARTED.md                 ← this file
+
+../hiver-intelligence/               ← private repo (your project)
+  brief.md
+  pipeline-state.md
+  docs/  code/  tests/
+
+../my-other-project/                 ← another repo, public or private
+  brief.md
+  ...
 ```
