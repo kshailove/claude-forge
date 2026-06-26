@@ -2,7 +2,7 @@
 
 You are the **Orchestrator** for ClaudeForge, an agentic framework that takes a project brief
 and drives it through a full pipeline: research → planning → PRD → tech spec → implementation
-→ code review → testing → bug fixing — with human gates at the 4 key decision points.
+→ testing → automated verification → pull request — with human gates at 2 key decision points.
 
 ## Your Responsibilities
 
@@ -48,14 +48,49 @@ Stage 4: spec          → subagent: agents/spec/CLAUDE.md
          ⛔ HUMAN GATE: Tech Spec approval
 Stage 5: implement     → subagent: agents/implement/CLAUDE.md
          (auto — no gate)
-Stage 6: review        → subagent: agents/review/CLAUDE.md
-         ⛔ HUMAN GATE: Code review sign-off
-Stage 7: test-write    → subagent: agents/test-writer/CLAUDE.md
+Stage 6: test-write    → subagent: agents/test-writer/CLAUDE.md
          (auto — no gate)
-Stage 8: test-run      → subagent: agents/test-runner/CLAUDE.md
-         (auto-loops with agents/bug-fix/CLAUDE.md up to 5 times)
-         ⛔ HUMAN GATE: Final sign-off
+Stage 7: PIV loop      → agents/test-runner + agents/bug-fix + agents/review
+         (auto — loops up to 5 times, no human gate)
+         See "PIV Loop" section below for full mechanics.
+Stage 8: pr-create     → subagent: agents/pr-create/CLAUDE.md
+         (auto — creates a GitHub PR; the PR itself is the human review)
 ```
+
+## PIV Loop (Post-Implementation Verification)
+
+Stage 7 is a closed automated loop — no human gate inside it. Run it as follows:
+
+```
+Iteration 1..5:
+  a. Run test-runner subagent
+     → All tests pass? Exit loop, proceed to Stage 8.
+     → Tests fail? Continue.
+  b. Run bug-fix subagent
+     Context: tests/last-run.txt (failing tests only) + relevant code files
+  c. Run review subagent (automated, no gate)
+     Context: tech-spec.md + prd.md + code/
+     The review agent writes docs/review.md — do not present it for human approval.
+  d. Increment iteration counter. If counter < 5, go back to step (a).
+
+After 5 iterations with failures still present:
+  - Do NOT proceed to Stage 8.
+  - Write tests/escalation-report.md (see bug-fix agent instructions).
+  - Print the escalation block and stop:
+    ════════════════════════════════════════
+    ⚠ PIV LOOP ESCALATION
+    Tests still failing after 5 iterations.
+    Report: [PROJECT_PATH]/tests/escalation-report.md
+    ════════════════════════════════════════
+  - Ask the human: "Review the escalation report. How would you like to proceed?"
+  - Wait for instructions before continuing.
+```
+
+Key rules for the PIV loop:
+- Run the review agent on every iteration, not just the first. Each bug-fix changes the code.
+- Pass only failing test names + error messages to bug-fix agents — not the full test suite.
+- Commit after each full iteration (test-run + bug-fix + review counts as one commit).
+- Track the iteration count in `pipeline-state.md` under the `piv` row.
 
 ## How to Run a Stage
 
@@ -105,13 +140,20 @@ Maintain a `[PROJECT_PATH]/pipeline-state.md` file. Update it after every stage:
 ```markdown
 # Pipeline State — [project]
 
-| Stage      | Status    | Artifact                  | Gate Decision | Notes |
-|------------|-----------|---------------------------|---------------|-------|
-| research   | ✅ done   | docs/research.md          | auto          |       |
-| plan       | ✅ done   | docs/plan.md              | auto          |       |
-| prd        | ✅ done   | docs/prd.md               | approved      |       |
-| spec       | 🔄 active | —                         | —             |       |
+| Stage      | Status    | Artifact                  | Gate Decision | Notes              |
+|------------|-----------|---------------------------|---------------|--------------------|
+| research   | ✅ done   | docs/research.md          | auto          |                    |
+| plan       | ✅ done   | docs/plan.md              | auto          |                    |
+| prd        | ✅ done   | docs/prd.md               | approved      |                    |
+| spec       | ✅ done   | docs/tech-spec.md         | approved      |                    |
+| implement  | ✅ done   | code/                     | auto          |                    |
+| test-write | ✅ done   | tests/                    | auto          |                    |
+| piv        | 🔄 active | tests/last-run.txt        | auto          | iteration 2/5      |
+| pr-create  | ⏳ pending | —                         | auto          |                    |
 ```
+
+For the `piv` row, update the Notes column with the current iteration (e.g. `iteration 2/5`)
+after each pass through the loop.
 
 ## Context Window Management
 

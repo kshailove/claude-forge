@@ -63,17 +63,16 @@ if [ ! -f "$PROJECT_DIR/pipeline-state.md" ]; then
 Started: $(date -u +"%Y-%m-%d %H:%M UTC")
 Forge: $FORGE_ROOT
 
-| Stage      | Status     | Artifact                  | Gate Decision | Notes |
-|------------|------------|---------------------------|---------------|-------|
-| research   | ⏳ pending | —                         | auto          |       |
-| plan       | ⏳ pending | —                         | auto          |       |
-| prd        | ⏳ pending | —                         | ⛔ human      |       |
-| spec       | ⏳ pending | —                         | ⛔ human      |       |
-| implement  | ⏳ pending | —                         | auto          |       |
-| review     | ⏳ pending | —                         | ⛔ human      |       |
-| test       | ⏳ pending | —                         | auto          |       |
-| fix        | ⏳ pending | —                         | auto (max 5x) |       |
-| done       | ⏳ pending | —                         | ⛔ human      |       |
+| Stage      | Status     | Artifact                  | Gate Decision | Notes          |
+|------------|------------|---------------------------|---------------|----------------|
+| research   | ⏳ pending | —                         | auto          |                |
+| plan       | ⏳ pending | —                         | auto          |                |
+| prd        | ⏳ pending | —                         | ⛔ human      |                |
+| spec       | ⏳ pending | —                         | ⛔ human      |                |
+| implement  | ⏳ pending | —                         | auto          |                |
+| test-write | ⏳ pending | —                         | auto          |                |
+| piv        | ⏳ pending | —                         | auto (max 5x) |                |
+| pr-create  | ⏳ pending | —                         | auto          |                |
 EOF
   echo "✅ Pipeline state initialised"
 
