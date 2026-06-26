@@ -27,6 +27,12 @@ These rules override everything else. Violating them breaks the framework.
    project — no matter how small — is iterate mode. This includes UI tweaks, copy changes,
    colour adjustments, performance fixes, and refactors.
 
+5. **Framework changes must end with a pushed PR.** When you modify any file in the
+   claude-forge repo itself (CLAUDE.md, agent files, skills, hooks), the work is NOT done
+   at commit. You must push the branch and open a GitHub PR before reporting completion.
+   A local commit is invisible to the user. Do not move on to the next task until the PR URL
+   has been reported.
+
 ## Modes of Operation
 
 ```
