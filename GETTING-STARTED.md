@@ -36,6 +36,17 @@ at key decision points.
    chmod +x framework/hooks/*.sh
    ```
 
+5. **Jira / ClickUp API token** (optional — only needed if you use ticket URLs)
+   ```bash
+   # Jira Personal Access Token (from id.atlassian.com → Security → API tokens)
+   export JIRA_API_TOKEN=your_token_here
+
+   # ClickUp Personal API Token (from ClickUp → Settings → Apps)
+   export CLICKUP_API_TOKEN=your_token_here
+   ```
+   Add these to your shell profile (`~/.zshrc` or `~/.bashrc`) to persist them.
+   If not set, the framework will ask you to paste ticket content directly.
+
 ---
 
 ## How to Start a New Project
@@ -338,6 +349,68 @@ Each project is completely independent. Just:
 
 ---
 
+## Adding Features and Fixing Bugs (Iteration Mode)
+
+After v1 is built, use iteration mode to keep developing the project.
+
+### The backlog
+
+Each project has a `backlog.md` file created during init. Add work items there:
+
+```markdown
+## Pending
+- [ ] Add CSV export to the dashboard
+- [ ] https://yourteam.atlassian.net/browse/PROJ-123
+- [ ] Fix login failure when email contains uppercase letters
+```
+
+Items can be plain descriptions or Jira/ClickUp ticket URLs.
+
+### Running iteration mode
+
+```
+Iterate on my-project
+```
+
+or describe the work directly:
+
+```
+Add CSV export to my-project
+Fix the login bug in my-project
+```
+
+The framework will:
+1. Fetch any ticket URLs (requires `JIRA_API_TOKEN` / `CLICKUP_API_TOKEN`)
+2. Analyse the existing codebase to understand scope
+3. Ask up to 3 clarifying questions per item — all upfront, in one shot
+4. Run all items unattended, creating a PR for each
+5. Present you with the full PR list at the end for review
+
+### How the framework decides what pipeline to run
+
+| Work type | Pipeline | Triggered by |
+|---|---|---|
+| Bug fix | reproduce → fix → PIV → PR | "fix", "broken", bug description |
+| Small feature | spec → implement → PIV → PR | touches ≤2 components, no new data models |
+| Large feature | prd → spec → implement → PIV → PR | new data models, new APIs, new integrations |
+
+The framework classifies automatically. If it can't tell, it asks you.
+
+### Keeping architecture.md current
+
+`docs/architecture.md` is the living source of truth the framework uses for all
+iteration work. It is:
+- Seeded automatically at the end of the greenfield build
+- Updated automatically after each iteration if the change is architectural
+
+If you made code changes outside the framework, resync manually:
+
+```
+Sync my-project
+```
+
+---
+
 ## Example: What to Say to Claude Code
 
 | You want to... | Say... |
@@ -346,7 +419,11 @@ Each project is completely independent. Just:
 | Resume | `Resume the pipeline for hiver-intelligence` |
 | Re-run one stage | `Re-run the prd stage for hiver-intelligence` |
 | Write a brief | `Help me write a brief for a new project. I want to build X` |
-| Jump to implementation | `Run only the implement stage for my-project` |
+| Add a feature | `Add CSV export to hiver-intelligence` |
+| Fix a bug | `Fix the login bug in hiver-intelligence` |
+| Work from a ticket | `Build https://yourteam.atlassian.net/browse/PROJ-123 in hiver-intelligence` |
+| Process the backlog | `Iterate on hiver-intelligence` |
+| Sync the architecture doc | `Sync hiver-intelligence` |
 | See project status | `Show me the pipeline state for my-project` |
 
 ---
@@ -368,9 +445,15 @@ claude-forge/                        ← public repo (the framework)
       test-writer/CLAUDE.md          ← test writing subagent
       test-runner/CLAUDE.md          ← test execution subagent
       bug-fix/CLAUDE.md              ← bug fixing subagent
+      context-discovery/CLAUDE.md    ← codebase analyser for iteration
+      re-spec/CLAUDE.md              ← keeps architecture.md current
+      pr-create/CLAUDE.md            ← opens GitHub PRs
     skills/
       brief-writer.md                ← helps write project briefs
       prd-template.md                ← PRD document structure
+      ticket-fetcher.md              ← fetches Jira / ClickUp tickets
+      feature-classifier.md          ← classifies work as bug / small / large feature
+      clarifying-questions.md        ← scopes work items before pipeline runs
     hooks/
       pipeline-start.sh              ← project init + git setup
       post-stage.sh                  ← git commit after each stage
@@ -379,10 +462,15 @@ claude-forge/                        ← public repo (the framework)
 
 ../hiver-intelligence/               ← private repo (your project)
   brief.md
+  backlog.md                         ← queue of features and bugs to build
   pipeline-state.md
-  docs/  code/  tests/
+  docs/
+    architecture.md                  ← living architecture doc (iteration source of truth)
+    research.md  plan.md  prd.md  tech-spec.md  review.md
+  code/  tests/
 
 ../my-other-project/                 ← another repo, public or private
   brief.md
+  backlog.md
   ...
 ```

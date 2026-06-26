@@ -15,6 +15,12 @@ description derived from the pipeline artifacts.
 
 ## Steps
 
+### 0. Seed architecture.md (greenfield only)
+
+If this is a greenfield build (not an iteration), the re-spec agent must run first
+to seed `docs/architecture.md` before the PR is created. The orchestrator handles
+this — do not run re-spec yourself. Confirm it has run before proceeding.
+
 ### 1. Check git state
 
 ```bash
