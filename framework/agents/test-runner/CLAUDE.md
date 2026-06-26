@@ -24,6 +24,25 @@ npm test -- --verbose 2>&1 | tee tests/last-run.txt
 go test ./... -v 2>&1 | tee tests/last-run.txt
 ```
 
+## Classifying failures
+
+When running inside the PIV loop you'll receive `changed_files` — the list of files the
+implement or bug-fix agent just modified. Use it to separate failures into two buckets:
+
+- **caused-by-change**: the failing test file, or a source file it imports, is in `changed_files`
+- **pre-existing**: the failing test has no overlap with `changed_files`
+
+Report both buckets separately. Pass **only** `caused-by-change` failures to the orchestrator
+for the bug-fix agent. Pre-existing failures are noted in the report but must NOT be fixed
+inside this PIV loop — they are a separate work item.
+
+If `changed_files` is not provided (e.g. first run before any fix), treat all failures as
+`caused-by-change` until a baseline can be established.
+
+If ALL failures are pre-existing after the first test run, report:
+`No failures caused by this change. Pre-existing failures noted. Ready for pr-create.`
+and exit the PIV loop immediately — do not invoke the bug-fix agent.
+
 ## Report Format
 
 After running, report to orchestrator:
@@ -33,11 +52,13 @@ TEST RUN RESULTS
 ================
 Total:   [n] tests
 Passed:  [n] ✅
-Failed:  [n] ❌
+Failed:  [n] ❌  ([x] caused-by-change, [y] pre-existing)
 Skipped: [n] ⏭
 
-FAILING TESTS:
+CAUSED-BY-CHANGE FAILURES (pass to bug-fix agent):
 - test_name_1: [one-line error]
+
+PRE-EXISTING FAILURES (do not fix in this PIV loop):
 - test_name_2: [one-line error]
 
 Full output: tests/last-run.txt
@@ -45,7 +66,8 @@ Full output: tests/last-run.txt
 
 ## Decision
 
-- If all passing: "All tests passing. Ready for final gate."
-- If any failing: "Tests failing. Invoking BugFixAgent. Iteration [n]/5."
+- All passing: "All tests passing. Ready for final gate."
+- Only pre-existing failures: "No new failures. Pre-existing issues noted. Ready for final gate."
+- Caused-by-change failures present: "Tests failing. Invoking BugFixAgent. Iteration [n]/5."
 
 Iteration count is tracked in `pipeline-state.md`.

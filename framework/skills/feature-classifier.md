@@ -12,6 +12,16 @@ Use this skill after context-discovery to classify a work item as one of:
 
 ## Classification rules
 
+### Classify as `trivial` if ALL of the following are true:
+- The change is purely visual or stylistic: CSS classes, icon sizes, colours, spacing, copy,
+  stroke weights, opacity values, or wiring an already-managed prop to an existing element
+- No new behaviour, no new external props, no new dependencies, no schema impact
+- Estimated diff: fewer than 20 lines across 1-2 files
+- No new tests required (existing tests may need an assertion value updated)
+
+Trivial changes use the **Trivial Change Pipeline** — skip context-discovery, re-spec, and
+the full review. If uncertain, do NOT classify as trivial; default to `bugfix` or `small-feature`.
+
 ### Classify as `bugfix` if:
 - The work item describes incorrect, broken, or unexpected behaviour
 - Keywords present: "fix", "broken", "not working", "error", "crash", "regression",
@@ -51,8 +61,8 @@ The orchestrator will then include this in the clarifying questions batch.
 ## Output format
 
 ```
-Classification: [bugfix / small-feature / large-feature / ambiguous]
+Classification: [trivial / bugfix / small-feature / large-feature / ambiguous]
 Confidence: [high / medium / low]
 Reason: [one sentence explaining the classification]
-Components affected: [list from context-discovery]
+Components affected: [list from context-discovery, or "none — trivial change" if trivial]
 ```

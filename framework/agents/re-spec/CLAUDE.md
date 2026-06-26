@@ -43,7 +43,24 @@ Last updated: [date]
 
 ## Mode: update
 
-Run after each feature or bugfix PIV loop. Make a judgment call:
+Run after each feature or bugfix PIV loop. First, check both preconditions:
+
+**Precondition 1 — architecture.md must exist.**
+If `docs/architecture.md` does not exist, output:
+`Re-spec: architecture.md not found. Run sync [project] to seed it. Skipping.`
+and stop immediately.
+
+**Precondition 2 — change must have architectural impact.**
+Inspect `changed_files`. If every file matches one of these patterns:
+- `*.css`, `*.scss` (style-only)
+- `*.test.*`, `*.spec.*`, `__tests__/*` (test-only)
+- A component file whose only change is adding/resizing a UI element or wiring an existing prop
+
+…then output:
+`Re-spec: UI-only / test-only change. No architectural impact. Skipping.`
+and stop immediately. Do not read architecture.md.
+
+If both preconditions pass, make a judgment call:
 
 **Update architecture.md if the work item:**
 - Added a new component (new service, new module, new background job)

@@ -136,8 +136,15 @@ After 5 iterations with failures still present:
 ```
 
 Key rules for the PIV loop:
-- Run the review agent on every iteration, not just the first. Each bug-fix changes the code.
-- Pass only failing test names + error messages to bug-fix agents — not the full test suite.
+- Pass `changed_files` (from the implement/bug-fix agent) to the test-runner on every run.
+  The test-runner will separate failures into `caused-by-change` vs `pre-existing`.
+  Only `caused-by-change` failures go to the bug-fix agent. Never fix pre-existing failures
+  inside the PIV loop — they are a separate work item.
+- If all remaining failures are pre-existing, exit the PIV loop immediately as a pass.
+- Review depth depends on `change_scope` (trivial/bugfix/small-feature/large-feature).
+  For `trivial`: skip the review agent entirely. For `bugfix`: run lightweight review only.
+  Full review only for `small-feature` and `large-feature`.
+- Pass only `caused-by-change` test names + errors to bug-fix agents — not the full suite.
 - Commit after each full iteration (test-run + bug-fix + review counts as one commit).
 - Track the iteration count in `pipeline-state.md` under the `piv` row.
 
@@ -244,7 +251,10 @@ When a user describes a feature, bug, or says "iterate on [project]":
 8. Present questions to the human. Wait for answers.
 9. Run the backlog queue unattended — for each item in order:
    a. Run the appropriate mini-pipeline (see "Iteration Mini-Pipelines" below)
-   b. After the PIV loop: run re-spec agent
+   b. After the PIV loop: run re-spec agent ONLY IF:
+      - `docs/architecture.md` exists, AND
+      - The change touched non-UI, non-test files (i.e. not purely CSS/styling/component wiring)
+      If either condition is false, skip re-spec entirely.
    c. Run pr-create agent
 10. After all items complete, present the human gate:
     ```
@@ -268,6 +278,21 @@ When a user says "sync [project]":
 ---
 
 ## Iteration Mini-Pipelines
+
+### Trivial change pipeline
+
+For items classified as `trivial` by the feature-classifier (pure visual/styling change,
+<20 lines, no new tests needed). Skips context-discovery, re-spec, and full review.
+
+```
+Step 1: implement (pass work item description + the 1-2 relevant file paths directly)
+Step 2: single test run (no PIV loop — one shot only)
+         → Tests pass? Proceed to Step 3.
+         → Tests fail? Escalate immediately to bugfix pipeline (do not loop).
+Step 3: pr-create
+```
+
+Context to pass to implement: work item description + file paths identified during mode detection.
 
 ### Bugfix pipeline
 
