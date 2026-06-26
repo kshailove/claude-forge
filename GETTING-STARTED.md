@@ -205,24 +205,39 @@ component breakdown.
 
 Claude writes all the code from the tech spec. Produces files in `code/`.
 
-### ⛔ Gate 3: Code Review
+### Stage 6: Test Writing
 
-Claude reviews its own code against the spec and produces `docs/review.md` with issues
-flagged by severity.
+Claude writes a full test suite (unit, integration, acceptance tests) against the
+PRD acceptance criteria. Produces files in `tests/`.
+*You don't review this — the PIV loop verifies it automatically.*
 
-**What to check:**
-- Are there CRITICAL issues? (These must be fixed before continuing)
-- Does the implementation feel like something your team could maintain?
-- Anything obviously missing?
+### Stage 7: PIV Loop (Post-Implementation Verification)
 
-### Stages 7-8: Test Writing + Test/Fix Loop
+The PIV loop runs fully automatically — no human approval needed at any step.
 
-Claude writes a full test suite, runs it, and auto-fixes failures up to 5 times.
-If tests still fail after 5 attempts, it escalates to you.
+Each iteration:
+1. **Run tests** — Claude runs the full test suite
+2. **If all pass** — exit the loop, proceed to PR creation
+3. **If any fail** — Claude fixes the failing tests (bug-fix agent)
+4. **Code review** — Claude reviews the updated code for quality and spec compliance
+5. Repeat up to 5 times
 
-### ⛔ Gate 4: Final Sign-off
+If tests are still failing after 5 iterations, Claude stops and escalates with a
+detailed report. You decide how to proceed.
 
-All tests passing. You review and approve the completed project.
+The code review inside the PIV loop is fully automated — Claude acts on it directly
+rather than waiting for your approval.
+
+### Stage 8: Pull Request
+
+Once all tests pass, Claude creates a GitHub PR with:
+- Summary of what was built (from the PRD)
+- Key architecture decisions (from the tech spec)
+- Test results and review verdict
+- How to run the project
+
+**Your review happens on GitHub** — read the PR, comment, request changes, or merge.
+This is the natural handoff point to your team.
 
 ---
 

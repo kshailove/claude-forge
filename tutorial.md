@@ -239,16 +239,7 @@ brief.md (you write this)
                              │
                              ▼
 ┌───────────────────────────────────────────────────────┐
-│  Stage 6: CODE REVIEW                                 │
-│  Agent: agents/review/CLAUDE.md                      │
-│  Input: tech-spec.md + prd.md + code/*               │
-│  Output: docs/review.md                              │
-│  ⛔ HUMAN GATE 3 — Approve / Reject                   │
-└────────────────────────────┬──────────────────────────┘
-                             │
-                             ▼
-┌───────────────────────────────────────────────────────┐
-│  Stage 7: TEST WRITING                                │
+│  Stage 6: TEST WRITING                                │
 │  Agent: agents/test-writer/CLAUDE.md                 │
 │  Input: prd.md + tech-spec.md + code/*               │
 │  Output: tests/*                                     │
@@ -257,17 +248,28 @@ brief.md (you write this)
                              │
                              ▼
 ┌───────────────────────────────────────────────────────┐
-│  Stage 8: TEST-RUN + BUG-FIX LOOP (up to 5x)         │
+│  Stage 7: PIV LOOP (Post-Implementation Verification) │
 │                                                       │
-│  8a. Test Runner: run test suite                      │
-│    → All pass? → Final Gate                          │
-│    → Any fail? → 8b Bug Fixer                        │
+│  Fully automated — no human gate inside the loop.    │
 │                                                       │
-│  8b. Bug Fixer: fix failing tests                     │
-│    → Loop back to 8a                                 │
-│    → If 5 iterations still failing → escalate        │
+│  Each iteration (up to 5x):                          │
+│  a. Test Runner: run full test suite                  │
+│    → All pass? → proceed to Stage 8                  │
+│    → Any fail? → continue                            │
+│  b. Bug Fixer: fix failing tests                      │
+│  c. Code Review: review updated code (automated)     │
+│    → Loop back to (a)                                │
 │                                                       │
-│  ⛔ HUMAN GATE 4 — Final sign-off                     │
+│  After 5 iterations with failures: escalate to human │
+└────────────────────────────┬──────────────────────────┘
+                             │
+                             ▼
+┌───────────────────────────────────────────────────────┐
+│  Stage 8: PULL REQUEST                                │
+│  Agent: agents/pr-create/CLAUDE.md                   │
+│  Input: all docs + tests/last-run.txt                │
+│  Output: GitHub PR URL                               │
+│  Auto → PR itself is the human review on GitHub      │
 └───────────────────────────────────────────────────────┘
 ```
 
@@ -585,18 +587,22 @@ This is the agentic equivalent of an engineer saying "I've been debugging this f
 
 Human gates are one of the most important design choices in ClaudeForge. They prevent the pipeline from running autonomously to completion without human judgment.
 
-### Why 4 Gates and Not More (or Fewer)?
+### Why 2 Gates and Not More (or Fewer)?
 
 Too many gates = the human does all the work; the AI is just helping. Too few gates = the AI makes all the decisions; humans lose control.
 
-The 4 gates are placed at the highest-leverage decision points:
+The 2 gates are placed at the highest-leverage decision points — before the AI does the bulk of its work:
 
 | Gate | After Stage | Why Here? |
 |---|---|---|
 | Gate 1 | PRD | If the requirements are wrong, all code will be wrong. Cheapest place to catch misunderstandings. |
 | Gate 2 | Tech Spec | Architecture is expensive to change after coding starts. This is the last checkpoint before significant AI work. |
-| Gate 3 | Code Review | Check that AI-generated code meets quality and security standards before writing tests for it. |
-| Gate 4 | Final Sign-Off | Confirm that all tests pass and the project is ready. |
+
+After the Tech Spec gate, the pipeline runs fully autonomously through implementation,
+testing, bug fixing, and code review. The PIV loop replaces the old manual code review
+and final sign-off gates — Claude verifies its own work automatically. The GitHub PR
+that Stage 8 creates is the natural handoff point for human review, without being a
+blocking gate inside the pipeline.
 
 ### The A/E/R Protocol
 
