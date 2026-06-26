@@ -55,6 +55,40 @@ else
   echo "✅ Git repo already exists"
 fi
 
+# Create backlog file if it doesn't exist
+if [ ! -f "$PROJECT_DIR/backlog.md" ]; then
+  cat > "$PROJECT_DIR/backlog.md" << 'EOF'
+# Backlog
+
+Add work items below. Each item can be:
+- A plain description: "Add CSV export to the dashboard"
+- A ticket URL:        "https://yourteam.atlassian.net/browse/PROJ-123"
+- A bug report:        "Fix login failure when email contains uppercase letters"
+
+## Pending
+<!-- Add items here, one per line, prefixed with "- [ ]" -->
+
+## In Progress
+
+## Done
+EOF
+  echo "✅ Backlog initialised"
+fi
+
+# Create architecture doc placeholder if it doesn't exist
+if [ ! -f "$PROJECT_DIR/docs/architecture.md" ]; then
+  cat > "$PROJECT_DIR/docs/architecture.md" << EOF
+# Architecture — $PROJECT
+
+> This file is seeded automatically at the end of the greenfield build pipeline
+> and updated by the re-spec agent after each iteration.
+> Do not edit manually unless you run \`sync $PROJECT\` afterwards.
+
+Status: pending (run the build pipeline to seed this file)
+EOF
+  echo "✅ Architecture doc placeholder created"
+fi
+
 # Create pipeline state file if it doesn't exist
 if [ ! -f "$PROJECT_DIR/pipeline-state.md" ]; then
   cat > "$PROJECT_DIR/pipeline-state.md" << EOF
