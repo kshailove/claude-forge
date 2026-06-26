@@ -6,7 +6,7 @@ or when their brief is too vague to run the pipeline on.
 ## When to Invoke
 
 The orchestrator calls this skill when:
-- `projects/[project]/brief.md` doesn't exist
+- `[PROJECT_PATH]/brief.md` doesn't exist
 - The user says "I want to build X" without a detailed brief
 - A brief exists but is under ~200 words
 
@@ -40,7 +40,7 @@ Ask these conversationally — not all at once. Adapt based on what they've alre
 
 ## Brief Template
 
-Once you have the answers, write `projects/[project]/brief.md`:
+Once you have the answers, write `[PROJECT_PATH]/brief.md`:
 
 ```markdown
 # [Project Name] — Brief

@@ -765,39 +765,42 @@ Let's look at every file in the framework and understand its purpose.
 ### Directory Structure
 
 ```
-claude-forge/
-├── CLAUDE.md                    ← Orchestrator (main agent instructions)
-├── README.md                    ← Quick start for users
-├── GETTING-STARTED.md           ← Detailed user guide
-├── tutorial.md                  ← This file
-│
-├── framework/
-│   ├── agents/                  ← 9 specialist agent instructions
-│   │   ├── research/CLAUDE.md
-│   │   ├── plan/CLAUDE.md
-│   │   ├── prd/CLAUDE.md
-│   │   ├── spec/CLAUDE.md
-│   │   ├── implement/CLAUDE.md
-│   │   ├── review/CLAUDE.md
-│   │   ├── test-writer/CLAUDE.md
-│   │   ├── test-runner/CLAUDE.md
-│   │   └── bug-fix/CLAUDE.md
-│   │
-│   ├── skills/                  ← Reusable instruction templates
-│   │   ├── brief-writer.md      ← Helps users write a good brief
-│   │   └── prd-template.md      ← Standard PRD document structure
-│   │
-│   └── hooks/                   ← Shell scripts for automation
-│       ├── pipeline-start.sh    ← Initialize project on pipeline start
-│       ├── post-stage.sh        ← Git commit after each stage
-│       └── pre-gate.sh          ← Validate artifact before human gate
-│
-└── projects/                    ← Your actual projects live here
-    └── engg-intelligence/       ← Example project
-        ├── brief.md
-        ├── docs/
-        │   └── research.md
-        └── pipeline-state.md
+gh/
+  claude-forge/                  ← this repo (public)
+  ├── CLAUDE.md                  ← Orchestrator (main agent instructions)
+  ├── README.md                  ← Quick start for users
+  ├── GETTING-STARTED.md         ← Detailed user guide
+  ├── tutorial.md                ← This file
+  ├── projects.conf              ← maps project names → directories
+  │
+  └── framework/
+      ├── agents/                ← 9 specialist agent instructions
+      │   ├── research/CLAUDE.md
+      │   ├── plan/CLAUDE.md
+      │   ├── prd/CLAUDE.md
+      │   ├── spec/CLAUDE.md
+      │   ├── implement/CLAUDE.md
+      │   ├── review/CLAUDE.md
+      │   ├── test-writer/CLAUDE.md
+      │   ├── test-runner/CLAUDE.md
+      │   └── bug-fix/CLAUDE.md
+      │
+      ├── skills/                ← Reusable instruction templates
+      │   ├── brief-writer.md    ← Helps users write a good brief
+      │   └── prd-template.md    ← Standard PRD document structure
+      │
+      └── hooks/                 ← Shell scripts for automation
+          ├── pipeline-start.sh  ← Initialize project on pipeline start
+          ├── post-stage.sh      ← Git commit after each stage
+          └── pre-gate.sh        ← Validate artifact before human gate
+
+  engg-intelligence/             ← your project (its own repo, public or private)
+  ├── brief.md
+  ├── pipeline-state.md
+  ├── docs/
+  │   └── research.md
+  ├── code/
+  └── tests/
 ```
 
 ### What Are Skills?
@@ -995,13 +998,14 @@ cd claude-forge
 
 ### Step 2: Write Your Brief
 
-Create your project directory and write a brief:
+Create your project directory (outside claude-forge) and write a brief:
 
 ```bash
-mkdir -p projects/my-project
+mkdir -p ../my-project
+echo "my-project=../my-project" >> projects.conf
 ```
 
-Then create `projects/my-project/brief.md` with:
+Then create `../my-project/brief.md` with:
 
 ```markdown
 # Project: [Your Project Name]
@@ -1042,7 +1046,7 @@ Then create `projects/my-project/brief.md` with:
 Open Claude Code in the claude-forge directory:
 
 ```bash
-claude-code
+claude
 ```
 
 Then type:
@@ -1052,7 +1056,7 @@ build my-project
 
 or more explicitly:
 ```
-start pipeline for projects/my-project
+start pipeline for my-project
 ```
 
 The orchestrator will:

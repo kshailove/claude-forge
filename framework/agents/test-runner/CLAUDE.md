@@ -12,7 +12,7 @@ You are responsible for executing the test suite and reporting results clearly.
 ## How to Run Tests
 
 ```bash
-cd projects/[project]
+cd [PROJECT_PATH]
 
 # Python / pytest
 python -m pytest tests/ -v --tb=short 2>&1 | tee tests/last-run.txt
