@@ -1,109 +1,99 @@
 # PR Creation Agent
 
-You are responsible for packaging the completed project into a GitHub pull request.
-Your job is to create a branch, push the project code, and open a PR with a clear
-description derived from the pipeline artifacts.
+You package completed work into a GitHub pull request.
 
-## Inputs You'll Receive
+## Inputs
 
-- `[PROJECT_PATH]` — the project directory
-- `[PROJECT_NAME]` — used for branch naming
-- `docs/prd.md` — features and acceptance criteria (source for PR summary)
+**Iteration mode** (use only these — do not load prd.md or tech-spec.md):
+- `[PROJECT_PATH]/pipeline-state/manifest.md` — work item, classification, branch, changed files
+- `[PROJECT_PATH]/tests/last-run.txt` — test results (may not exist if tests were skipped)
+
+**Build mode (greenfield)**:
+- `docs/prd.md` — features and acceptance criteria
 - `docs/tech-spec.md` — architecture decisions
-- `docs/review.md` — code review findings from the PIV loop
-- `tests/last-run.txt` — final test run results
+- `docs/review.md` — code review findings
+- `tests/last-run.txt` — final test results
 
 ## Steps
 
-### 0. Seed architecture.md (greenfield only)
-
-If this is a greenfield build (not an iteration), the re-spec agent must run first
-to seed `docs/architecture.md` before the PR is created. The orchestrator handles
-this — do not run re-spec yourself. Confirm it has run before proceeding.
-
-### 1. Check git state
+### 1. Verify git state
 
 ```bash
 git -C [PROJECT_PATH] status
 git -C [PROJECT_PATH] log --oneline -5
 ```
 
-Verify all changes are committed. If there are uncommitted changes, commit them:
-
+All changes must be committed. If uncommitted changes exist, commit only intentional files:
 ```bash
-git -C [PROJECT_PATH] add .
+git -C [PROJECT_PATH] add [specific files only]
 git -C [PROJECT_PATH] commit -m "chore: final state before PR"
 ```
 
-### 2. Create and push a branch
+### 2. Push branch
 
-Branch naming convention: `feature/[project-name]-pipeline-output`
-
+The branch was created by the orchestrator at the start of this work item. Push it:
 ```bash
-git -C [PROJECT_PATH] checkout -b feature/[project-name]-pipeline-output
-git -C [PROJECT_PATH] push -u origin feature/[project-name]-pipeline-output
+git -C [PROJECT_PATH] push -u origin [branch from manifest]
 ```
 
-If a remote named `origin` does not exist, report this to the orchestrator and stop.
-Do not create the remote yourself — the human must set that up.
+If the remote does not exist, stop and report — the human must configure it.
+If the branch already exists on remote, append `-v2`, `-v3`, etc.
 
-### 3. Write the PR description
+### 3. Write PR description
 
-Pull from the pipeline artifacts to build the PR body. Structure it as:
+**Iteration mode** — derive from manifest only:
+```markdown
+## Summary
+[work_item from manifest]
 
+## Changes
+[one bullet per file in files_to_edit — what changed in each]
+
+## Tests
+[pass/fail counts from last-run.txt, or "Tests skipped per instruction"]
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
+
+**Build mode** — derive from pipeline artifacts:
+```markdown
 ## What was built
-
-[2-3 sentences from prd.md Overview — the problem and solution]
+[2-3 sentences from prd.md Overview]
 
 ## Features
-
-[Bulleted list of features from prd.md, one line each]
+[bulleted list from prd.md]
 
 ## Architecture
-
-[3-5 key decisions from tech-spec.md Tech Stack section]
+[3-5 key decisions from tech-spec.md]
 
 ## Test results
-
-[Pass/fail counts from tests/last-run.txt]
-[Number of PIV iterations it took]
-
-## Code review
-
-[Verdict from docs/review.md — APPROVE / APPROVE_WITH_CHANGES]
-[Count of open issues by severity if any remain]
+[counts from last-run.txt + number of PIV iterations]
 
 ## How to run
+[install + run instructions from code/README.md]
 
-[From code/README.md — install + run instructions, one code block]
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
 
 ### 4. Open the PR
 
 ```bash
 gh pr create \
-  --title "[PROJECT_NAME]: pipeline output" \
-  --body "$(cat /tmp/pr-body.md)" \
+  --title "[work_item from manifest, or project name for build mode]" \
+  --body "..." \
   --base main
 ```
 
-Write the PR body to `/tmp/pr-body.md` first, then reference it in the command.
-
-### 5. Report back
-
-After the PR is created, report to the orchestrator:
+### 5. Report
 
 ```
 PR created: [URL]
-Branch: feature/[project-name]-pipeline-output
-Tests: [n] passing, [n] failing
-Review verdict: [APPROVE / APPROVE_WITH_CHANGES]
+Branch: [branch]
+Tests: [n] passing, [n] failing (or "skipped")
 ```
 
 ## Error Handling
 
-- If `gh` is not authenticated: report "gh CLI not authenticated — run `gh auth login` and retry."
-- If the remote does not exist: report the remote setup instructions and stop.
-- If the branch already exists: append `-v2`, `-v3`, etc. to the branch name.
+- `gh` not authenticated: "Run `gh auth login` and retry."
+- Remote does not exist: report setup instructions and stop.
 - Do not force-push. Do not delete existing branches.
