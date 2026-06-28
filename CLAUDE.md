@@ -106,7 +106,7 @@ Stage 5: implement     → subagent: agents/implement/CLAUDE.md
 Stage 6: test-write    → subagent: agents/test-writer/CLAUDE.md
          (auto — no gate)
 Stage 7: PIV loop      → agents/test-runner + agents/bug-fix + agents/review
-         (auto — loops up to 5 times, no human gate)
+         (auto — loops up to 2 times, no human gate)
          See "PIV Loop" section below for full mechanics.
 Stage 8: pr-create     → subagent: agents/pr-create/CLAUDE.md
          (auto — creates a GitHub PR; the PR itself is the human review)
@@ -291,6 +291,7 @@ For items classified as `trivial` by the feature-classifier (pure visual/styling
 <20 lines, no new tests needed). Skips context-discovery, re-spec, and full review.
 
 ```
+Step 0: branch-setup (checkout main, pull, create fresh branch for this work item)
 Step 1: implement (pass work item description + the 1-2 relevant file paths directly)
 Step 2: single test run (no PIV loop — one shot only)
          → Tests pass? Proceed to Step 3.
@@ -303,6 +304,7 @@ Context to pass to implement: work item description + file paths identified duri
 ### Bugfix pipeline
 
 ```
+Step 0: branch-setup (checkout main, pull, create fresh branch for this work item)
 Step 1: context-discovery (understand the codebase area affected)
 Step 2: implement (bug-fix agent — reproduce, locate, fix)
 Step 3: PIV loop (test-run → bug-fix → review, up to 5x)
@@ -315,6 +317,7 @@ Context to pass to implement: context-discovery output + bug description + clari
 ### Small-feature pipeline
 
 ```
+Step 0: branch-setup (checkout main, pull, create fresh branch for this work item)
 Step 1: context-discovery
 Step 2: spec (write a feature spec scoped to this work item only)
 Step 3: implement
@@ -329,6 +332,7 @@ Context to pass to implement: feature spec + context-discovery output.
 ### Large-feature pipeline
 
 ```
+Step 0: branch-setup (checkout main, pull, create fresh branch for this work item)
 Step 1: context-discovery
 Step 2: prd (product requirements for this feature only)
 Step 3: spec (technical spec for this feature only)
@@ -349,3 +353,26 @@ Context to pass to implement: feature spec + context-discovery output + architec
   - Feature: `feature/[kebab-case-title]` (derived from work item title)
   - Bugfix: `fix/[kebab-case-title]`
   - Max 50 characters for the branch name
+
+### Branch setup — mandatory first step for every work item
+
+Before running ANY mini-pipeline step, the orchestrator MUST:
+
+1. Determine the branch name for this work item (see naming rules above)
+2. Check out `main` (or the repo's default branch) and pull latest:
+   ```bash
+   git checkout main && git pull origin main
+   ```
+3. Create and check out a fresh branch for this work item:
+   ```bash
+   git checkout -b [branch-name]
+   ```
+4. All subsequent implement/test/commit steps run on this new branch
+
+**Never reuse an existing branch across work items.** Each work item gets its own
+branch, even if the previous work item's branch is still open as a PR. Reusing a
+branch means unrelated changes accumulate in a single PR and, worse, if that PR
+is already merged you silently commit onto a stale branch that diverges from main.
+
+The implement agent must be told the branch name explicitly and must verify it is
+checked out before making any changes.
